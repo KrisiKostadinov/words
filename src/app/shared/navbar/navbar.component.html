@@ -1,0 +1,18 @@
+<mat-toolbar class="bg-dark">
+    <mat-toolbar-row class="text-light">
+        <div class="navbar-left">
+            <span routerLink="/">Война на думи</span>
+        </div>
+        <div class="navbar-right" *ngIf="auth.isLoggedIn; else notAuth">
+            <button mat-raised-button><span>Hello, </span><span *ngIf="auth.userData">{{ auth.userData.displayName }}</span></button>
+            <button mat-button (click)="logout()">Logout</button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<ng-template #notAuth>
+    <div class="navbar-right">
+        <button routerLink="account/register" mat-raised-button>Регистрация</button>
+        <button routerLink="account/login" mat-button>Вход</button>
+    </div>
+</ng-template>

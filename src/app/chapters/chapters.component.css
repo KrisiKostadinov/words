@@ -1,0 +1,9 @@
+img {
+    width: 100%;
+}
+
+mat-card {
+    margin: 1em;
+    cursor: pointer;
+    flex-basis: 320px;
+}

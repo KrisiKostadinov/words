@@ -1,0 +1,19 @@
+<div *ngIf="isSubmit" class="fixed-loader">
+    <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="registerForm" class="p-4" (ngSubmit)="onSubmit()">
+  
+    <mat-form-field class="w-100">
+        <input matInput type="email" placeholder="Your Email" formControlName="email">
+    </mat-form-field>
+    
+    <mat-form-field class="w-100">
+        <input type="password" matInput placeholder="Your Password" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+        <input type="password" matInput placeholder="Repeat Password" formControlName="repeatPassword">
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
+</form>

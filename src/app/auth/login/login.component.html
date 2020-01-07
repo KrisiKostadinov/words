@@ -1,0 +1,23 @@
+<div *ngIf="isSubmit" class="fixed-loader">
+    <mat-spinner></mat-spinner>
+</div>
+
+<form [formGroup]="loginForm" class="p-4" (ngSubmit)="onSubmit()">
+  
+    <mat-form-field class="w-100">
+        <input matInput type="email" placeholder="Your Email" formControlName="email">
+    </mat-form-field>
+    
+    <mat-form-field class="w-100">
+        <input type="password" matInput placeholder="Your Password" formControlName="password">
+    </mat-form-field>
+    <div class="container d-flex justify-content-between">
+        <button mat-raised-button color="primary" [disabled]="!loginForm.valid">login</button>
+        <button type="button" mat-raised-button color="warn" (click)="authService.signInWithGoogle()">
+            Log in with Google
+        </button>
+        <button type="button" mat-raised-button color="primary" (click)="authService.signInWithGoogle()">
+            Log in with Facebook
+        </button>
+    </div>
+</form>

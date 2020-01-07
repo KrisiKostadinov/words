@@ -1,0 +1,9 @@
+button, span {
+    outline: none;
+    cursor: pointer;
+}
+
+mat-toolbar-row {
+    display: flex;
+    justify-content: space-between;
+}

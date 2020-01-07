@@ -1,0 +1,191 @@
+.level {
+    background-size: cover;
+}
+
+.mess {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: show-in 0.2s forwards;
+    opacity: 0;
+    padding: 2em 0;
+    left: 0;
+    color: white;
+    box-shadow: 0 0 10px #ccc;
+    font-size: 2em;
+    z-index: 100;
+}
+
+.mess span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.mess.success {
+    background-color: springgreen;
+}
+
+ul.navbar-level {
+    padding: 0.4em;
+    display: flex;
+    background-color: #222;
+    justify-content: space-between;
+}
+
+ul.navbar-level li {
+    padding: 0.6em;
+    display: flex;
+    color: #222;
+    background-color: whitesmoke;
+    border-radius: 2em;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+}
+
+ul.words {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    background-color: #22222244;
+    padding: 2em;
+    border-radius: 7px;
+}
+
+ul.word {
+    display: flex;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 1em;
+    background-color: transparent;
+    border: 6px solid whitesmoke;
+    box-shadow: inset 0 0 14px whitesmoke;
+}
+
+ul.word > li {
+    width: 2em;
+    height: 2em;
+    text-transform: capitalize;
+    position: relative;
+    border-right: 1px solid whitesmoke;
+}
+
+ul.word > li span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: show-in-span 1s;
+}
+
+ul.letters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+ul.letters li {
+    padding: 0.2em;
+}
+
+ul.letters li span {
+    padding: 1em;
+    display: block;
+    cursor: pointer;
+    border: 1px solid;
+    background-color: #22222244;
+}
+
+ul.letters li span:hover {
+    background-color: #222;
+    color: white;
+}
+
+.currentWord {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currentWord span {
+    opacity: 0;
+    color: white;
+    font-size: 2em;
+}
+
+.success {
+    animation: show-in 1s forwards;
+    opacity: 0;
+}
+
+.currentWord {
+    width: 100%;
+    height: 100%;
+    background-color: #22222244;
+}
+
+button {
+    outline: none;
+}
+
+@keyframes show-in {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes show-in-span {
+    from {
+        opacity: 0;
+        font-size: 0;
+    }
+    to {
+        opacity: 1;
+        font-size: 1em;
+    }
+}
+
+.level-up ul {
+    padding: 0;
+}
+
+.level-up ul li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.7em 1em;
+    color: #222;
+    border-bottom: 2px solid #ccc;
+}
+
+.level-up ul li:hover {
+    background-color: #ccc;
+    
+}
+
+.level-up .btn-group button {
+    margin: 2em;
+}
+
+.stars {
+    margin: 2em 0;
+}
+
+.stars i {
+    font-size: 3em;
+}
+
+.stars i:nth-child(2) {
+    font-size: 4em;
+}
