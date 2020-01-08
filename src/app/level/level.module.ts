@@ -7,6 +7,7 @@ import { ChapterComponent } from '../chapter/chapter.component';
 import { ChaptersComponent } from '../chapters/chapters.component';
 import { ChapterService } from '../chapters/services/chapter.service';
 import { RouterModule } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 
 
@@ -17,7 +18,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,

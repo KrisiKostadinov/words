@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LettersComponent } from './letters/letters.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
 import { LevelModule } from './level/level.module';
 import { WordsService } from './level/words/words.service';
 import { SharedModule } from './shared/shared.module';
@@ -38,7 +37,6 @@ import { LevelService } from './chapter/levels/services/level.service';
     AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     LevelModule,
     SharedModule,
     AuthModule,

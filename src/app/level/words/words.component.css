@@ -157,6 +157,10 @@ button {
     }
 }
 
+.level-up {
+    opacity: 0;
+}
+
 .level-up ul {
     padding: 0;
 }

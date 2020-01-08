@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <div class="col-12 bg-white mt-4 p-0 rounded shadow" *ngIf="!levelUp else levelUpTemp">
-            <div class="level" *ngIf="!levelUp" style="background-image: linear-gradient(rgba(255, 0, 140, 0.205), rgba(255, 0, 140, 0.205)), url('https://images.unsplash.com/photo-1464820453369-31d2c0b651af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80');">
+        <div [@levelUpTrigger]="stateLevelUp" class="col-12 bg-white mt-4 p-0 rounded shadow" *ngIf="!levelUp else levelUpTemp">
+            <div class="level" style="background-image: linear-gradient(rgba(255, 0, 140, 0.205), rgba(255, 0, 140, 0.205)), url('https://images.unsplash.com/photo-1464820453369-31d2c0b651af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80');">
                 <ul class="navbar-level">
                     <li>
                         <i class="material-icons">settings_applications</i><span>Settings</span>
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <ul *ngIf="wordsObj" class="letters">
+                                <ul *ngIf="wordsObj else loadingBar" class="letters">
                                     <li *ngFor="let letter of wordsObj.letters.split('')">
                                         <span class="letter text-light text-capitalize rounded" (click)="addLetter(letter)">{{ letter }}</span>
                                     </li>
@@ -49,8 +49,11 @@
     </div>
     <div class="col-3"></div>
 </div>
+<ng-template #loadingBar>
+    <mat-spinner></mat-spinner>
+</ng-template>
 <ng-template #levelUpTemp>
-    <div class="level-up col-12 bg-white mt-4 p-0 rounded shadow">
+    <div [@levelUpTriggerStatistics]="stateLevelUpStatistics" class="level-up col-12 bg-white mt-4 p-0 rounded shadow">
         <div class="stars text-center">
             <i class="material-icons">star</i>
             <i class="material-icons">star</i>
