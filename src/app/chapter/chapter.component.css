@@ -11,3 +11,7 @@ mat-card {
 button {
     outline: none;
 }
+
+material-icons span {
+    display: flex;
+}

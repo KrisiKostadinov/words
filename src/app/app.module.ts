@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,17 +17,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthRoutingModule } from './auth/auth.routing.module';
 import { AuthInterceptor } from './auth/interceptors/auth-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatCardModule } from '@angular/material';
-import { ChapterComponent } from './chapter/chapter.component';
-import { ChaptersComponent } from './chapters/chapters.component';
 import { LevelService } from './chapter/levels/services/level.service';
+import { ChapterModule } from './chapter/chapter.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LettersComponent,
-    ChaptersComponent,
-    ChapterComponent
+    LettersComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -41,7 +36,7 @@ import { LevelService } from './chapter/levels/services/level.service';
     SharedModule,
     AuthModule,
     AuthRoutingModule,
-    MatCardModule
+    ChapterModule
   ],
   providers: [ 
     WordsService,
@@ -49,8 +44,7 @@ import { LevelService } from './chapter/levels/services/level.service';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    },
-    LevelService
+    }
   ],
   bootstrap: [AppComponent]
 })

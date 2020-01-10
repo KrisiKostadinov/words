@@ -1,4 +1,4 @@
-.level {
+.level-img {
     background-size: cover;
 }
 
@@ -61,10 +61,10 @@ ul.word {
     display: flex;
     overflow: hidden;
     padding: 0;
-    margin: 0 1em;
     background-color: transparent;
     border: 6px solid whitesmoke;
     box-shadow: inset 0 0 14px whitesmoke;
+    margin: 1em;
 }
 
 ul.word > li {
@@ -120,6 +120,27 @@ ul.letters li span:hover {
     font-size: 2em;
 }
 
+.checked-word {
+    position: relative;
+}
+
+.checked-word > span {
+    position: absolute;
+    left: 50%;
+    top: -10%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    z-index: 100;
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 2em;
+    animation: show-in-span 0.2s;
+}
+
+.checked-word > span i {
+    font-size: 2em;
+}
+
 .success {
     animation: show-in 1s forwards;
     opacity: 0;
@@ -157,6 +178,28 @@ button {
     }
 }
 
+@keyframes show-in-i {
+    from {
+        opacity: 0;
+        font-size: 0;
+    }
+    to {
+        opacity: 1;
+        font-size: 3em;
+    }
+}
+
+@keyframes show-in-i-big {
+    from {
+        opacity: 0;
+        font-size: 0;
+    }
+    to {
+        opacity: 1;
+        font-size: 4em;
+    }
+}
+
 .level-up {
     opacity: 0;
 }
@@ -187,9 +230,40 @@ button {
 }
 
 .stars i {
-    font-size: 3em;
+    font-size: 0;
+    animation: show-in-i 0.7s forwards;
+    opacity: 0;
+}
+
+.stars i:nth-child(1) { 
+    animation-delay: 0.5s;
+}
+
+.stars i:nth-child(2) {
+    animation: show-in-i-big 0.7s forwards;
+    animation-delay: 1s;
+}
+
+.stars i:nth-child(3) { 
+    animation-delay: 1.5s;
 }
 
 .stars i:nth-child(2) {
     font-size: 4em;
+}
+
+.bonus-words-list {
+    width: 100%;
+    border-radius: 1em;
+}
+
+.bonus-words-list li {
+    padding: 0.7em 0;
+}
+
+.bonus-words-list span {
+    color: #fff;
+    font-size: 1.7em;
+    text-transform: uppercase;
+    animation: show-in-span 1s forwards;
 }

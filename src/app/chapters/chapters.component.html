@@ -1,7 +1,8 @@
 <div class="container">
     <h2 class="text-capitalize text-center text-light my-4">chapters</h2>
     <div class="row w-100 d-flex justify-content-center">
-        <mat-card *ngFor="let level of chapters | async" routerLink="/chapter/{{ level.id }}">
+        <mat-spinner *ngIf="!chapters"></mat-spinner>
+        <mat-card *ngFor="let level of chapters" routerLink="/chapter/{{ level.id }}">
             <mat-card-header>
                 <mat-card-title>1 Chapter</mat-card-title>
                 <mat-card-subtitle>Flowers</mat-card-subtitle>

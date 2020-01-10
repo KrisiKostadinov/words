@@ -43,4 +43,8 @@ export class WordsService {
   getWordById(id) {
     return this.fs.collection(`words${id}`);
   }
+
+  saveData(userId, levelId, data) {
+    return this.fs.collection("users").doc(userId).collection("levels").doc(levelId).set(data);
+  }
 }

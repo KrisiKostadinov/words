@@ -1,8 +1,13 @@
 <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6">
+    <div class="col-3 px-0">
+        <ul [@isOpenBonus]="stateBonus" *ngIf="wordsObj" class="bonus-words-list bg-dark">
+            <h2 class="text-center my-4 text-light">Бонус думи</h2>
+            <li *ngFor="let bWord of wordsObj.bonusWords"><span *ngIf="bWord.isShow">{{ bWord.word }}</span></li>
+        </ul>
+    </div>
+    <div class="col-6 px-0">
         <div [@levelUpTrigger]="stateLevelUp" class="col-12 bg-white mt-4 p-0 rounded shadow" *ngIf="!levelUp else levelUpTemp">
-            <div class="level" style="background-image: linear-gradient(rgba(255, 0, 140, 0.205), rgba(255, 0, 140, 0.205)), url('https://images.unsplash.com/photo-1464820453369-31d2c0b651af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80');">
+            <div class="level-img" style="background-image: linear-gradient(rgba(255, 0, 140, 0.205), rgba(255, 0, 140, 0.205)), url('https://images.unsplash.com/photo-1464820453369-31d2c0b651af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80');">
                 <ul class="navbar-level">
                     <li>
                         <i class="material-icons">settings_applications</i><span>Settings</span>
@@ -15,15 +20,17 @@
                 </ul>
                 <div class="content-level p-4">
                     <ul *ngIf="wordsObj" class="words">
-                        <li *ngFor="let word of wordsObj.words">
+                        <li class="checked-word" *ngFor="let word of wordsObj.words">
+                            <span *ngIf="word.isShow">
+                                <i class="material-icons text-success">check</i>
+                            </span>
                             <ul  class="word rounded">
-                                <li *ngFor="let letter of word.word.split('')" class="letter text-light"><span *ngIf="word.isShow">{{ letter }}</span></li>
+                                <li *ngFor="let letter of word.word.split('')" class="letter text-light">
+                                    <span *ngIf="word.isShow">{{ letter }}</span>
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                    
-                    <ng-template #default><span>-</span></ng-template>
-                    
                     <div class="text-center">
                         <div class="row">
                             <div class="col-6 rounded">
@@ -55,19 +62,43 @@
 <ng-template #levelUpTemp>
     <div [@levelUpTriggerStatistics]="stateLevelUpStatistics" class="level-up col-12 bg-white mt-4 p-0 rounded shadow">
         <div class="stars text-center">
-            <i class="material-icons">star</i>
-            <i class="material-icons">star</i>
-            <i class="material-icons">star</i>
+            <i *ngFor="let star of stars" class="material-icons">
+                <span *ngIf="star == true else falseStar">star</span>
+            </i>
+            <ng-template #falseStar>star_border</ng-template>
         </div>
         <h2 class="text-success text-uppercase text-center">Нивото е преминато</h2>
         <ul>
             <li>
                 <span>Събрани точки: </span>
-                <span>20</span>
+                <span>{{ points }}</span>
+            </li>
+            <li>
+                <span>Събрани точки от бонус думи: </span>
+                <span *ngIf="bonusPoints > 0 else default">{{ bonusPoints }}</span>
+            </li>
+            <li>
+                <span>Познати бонус думи: </span>
+                <span>{{ bonusWordsCount }} / {{ totalBonusWordsCount }}</span>
             </li>
             <li>
                 <span>Познати думи: </span>
-                <span>2</span>
+                <span>{{ successWords }} / {{ totalCountWords }}</span>
+            </li>
+            <li>
+                <span>Непознати думи: </span>
+                <span>{{ unfamiliarWords }} / {{ totalCountWords }}</span>
+            </li>
+            <li>
+                <span>Несъществуващи думи: </span>
+                <span class="text-right">{{ incorrenctWords.length }}
+                    <button *ngIf="incorrenctWords.length > 0" mat-mini-fab (click)="showIncorrectWords()">
+                        <i class="material-icons">remove_red_eye</i>
+                    </button>
+                    <ul class="d-flex justify-content-between" *ngIf="isShowIncorrectWords">
+                        <li *ngFor="let iWord of incorrenctWords">{{ iWord }}</li>
+                    </ul>
+                </span>
             </li>
         </ul>
         <div class="btn-group d-flex justify-content-between">
@@ -76,3 +107,4 @@
         </div>
     </div>
 </ng-template>
+<ng-template #default><span>-</span></ng-template>
