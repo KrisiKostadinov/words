@@ -6,9 +6,14 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class LevelService {
 
-  constructor(public fs: AngularFirestore) { }
+  constructor(public fs: AngularFirestore) {
+  }
 
   getAll() {
-    return this.fs.collection("levels", ref => ref.orderBy("number")).valueChanges({ idField: 'id' });
+    return this.fs.collection('levels', ref => ref.orderBy("number")).valueChanges({ idField: "id" });
+  }
+
+  getById(id) {
+    return this.fs.collection('levels').doc(id).valueChanges();
   }
 }

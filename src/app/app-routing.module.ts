@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: 'account', loadChildren: () => import('./auth/auth/auth.module').then(m => m.AuthModule) },
   { path: '', component: ChaptersComponent },
   { path: 'chapter/:id', component: ChapterComponent },
-  { path: 'level/:id', component: WordsComponent }
+  { path: 'level/:id', component: WordsComponent },
+  { path: 'level/:nextLevel', component: WordsComponent }
 ];
 
 @NgModule({

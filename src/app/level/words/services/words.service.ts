@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { WordsObj } from './models/wordsObj.model';
+import { WordsObj } from '../models/wordsObj.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ export class WordsService {
   getAllWordsInLevel(id): Observable<Object> {
     console.log(id);
     return this.fs.collection("levels").doc(id).valueChanges();
+  }
+
+  getNextLevel(number) {
+    return this.fs.collection("levels").valueChanges({ idField: 'id' });
   }
 
   checkWord(currentWord) {

@@ -27,6 +27,12 @@
     background-color: springgreen;
 }
 
+.level-container {
+    opacity: 0;
+    transform: scale(0.7);
+    animation: show-in-span 1s forwards;
+}
+
 ul.navbar-level {
     padding: 0.4em;
     display: flex;

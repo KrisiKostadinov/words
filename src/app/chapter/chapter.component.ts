@@ -19,16 +19,6 @@ export class ChapterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.levelService.getAll().subscribe(data => {
       this.levels = data;
-      for(let level = 0; level < data.length; level++) {
-        for(let user = 0; user < data[level]['users'].length; user++) {
-          if(this.levels[level]['users'][user].userId == this.auth.userData.uid) {
-            this.levels[level]['users'][user].stars = data[level]['users'][user].stars;
-          } else {
-            this.levels[level]['users'][user].stars = [false, false, false];
-          }
-        }
-      }
-
     });
   }
 

@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LettersComponent } from './letters/letters.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LevelModule } from './level/level.module';
-import { WordsService } from './level/words/words.service';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth/auth.module';
 
@@ -38,8 +37,7 @@ import { ChapterModule } from './chapter/chapter.module';
     AuthRoutingModule,
     ChapterModule
   ],
-  providers: [ 
-    WordsService,
+  providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
