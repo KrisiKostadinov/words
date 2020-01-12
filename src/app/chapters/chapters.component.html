@@ -2,12 +2,12 @@
     <h2 class="text-capitalize text-center text-light my-4">chapters</h2>
     <div class="row w-100 d-flex justify-content-center">
         <mat-spinner *ngIf="!chapters"></mat-spinner>
-        <mat-card *ngFor="let level of chapters" routerLink="/chapter/{{ level.id }}">
+        <mat-card *ngFor="let chapter of chapters" routerLink="/chapter/{{ chapter.id }}">
             <mat-card-header>
-                <mat-card-title>1 Chapter</mat-card-title>
-                <mat-card-subtitle>Flowers</mat-card-subtitle>
+                <mat-card-title>{{ chapter.name }}</mat-card-title>
+                <mat-card-subtitle>{{ chapter.subtitle }}</mat-card-subtitle>
             </mat-card-header>
-            <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80">
+            <img src="{{chapter.photoUrl}}">
             <mat-card-actions>
                 <button mat-button>LIKE</button>
                 <button mat-button>SHARE</button>

@@ -1,11 +1,10 @@
 <div class="container">
-    <h2 class="h2 text-center text-uppercase text-light my-4">Chapter <span>1</span></h2>
-    <div *ngIf="levels" class="row w-100 d-flex justify-content-center">
+    <div class="row w-100 d-flex justify-content-center">
         <mat-spinner *ngIf="!levels"></mat-spinner>
         <mat-card *ngFor="let level of levels" routerLink="/level/{{ level.id }}">
             <mat-card-header class="d-flex justify-content-between">
-                <mat-card-title *ngFor="let ul of level.users">
-                    <i class="material-icons" *ngFor="let star of ul.stars">
+                <mat-card-title>
+                    <i class="material-icons" *ngFor="let star of level.stars">
                         <span *ngIf="star">star</span>
                         <span *ngIf="!star">star_border</span>
                     </i>
