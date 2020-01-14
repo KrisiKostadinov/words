@@ -16,13 +16,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthRoutingModule } from './auth/auth.routing.module';
 import { AuthInterceptor } from './auth/interceptors/auth-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LevelService } from './chapter/levels/services/level.service';
 import { ChapterModule } from './chapter/chapter.module';
+import { AddChapterComponent } from './chapter/add-chapter/add-chapter.component';
+import { ChapterRoutiongModule } from './chapter/chapter.routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LettersComponent
+    LettersComponent,
+    AddChapterComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -35,7 +37,8 @@ import { ChapterModule } from './chapter/chapter.module';
     SharedModule,
     AuthModule,
     AuthRoutingModule,
-    ChapterModule
+    ChapterModule,
+    ChapterRoutiongModule
   ],
   providers: [
     {

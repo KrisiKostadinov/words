@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row w-100 d-flex justify-content-center">
         <mat-spinner *ngIf="!levels"></mat-spinner>
-        <mat-card *ngFor="let level of levels" routerLink="/level/{{ level.id }}">
+        <mat-card *ngFor="let level of levels" routerLink="/chapter/level/{{ level.id }}">
             <mat-card-header class="d-flex justify-content-between">
                 <mat-card-title>
                     <i class="material-icons" *ngFor="let star of level.stars">

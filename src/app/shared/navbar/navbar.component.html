@@ -2,9 +2,10 @@
     <mat-toolbar-row class="text-light">
         <div class="navbar-left">
             <span routerLink="/">Война на думи</span>
+            <span *ngIf="auth.isInAdmin" class="mx-5" routerLink="/chapter/add">Добави глава</span>
         </div>
         <div class="navbar-right" *ngIf="auth.isLoggedIn; else notAuth">
-            <button mat-raised-button><span>Hello, </span><span *ngIf="auth.userData">{{ auth.userData.displayName }}</span></button>
+            <button mat-raised-button><span>Hello, </span><span *ngIf="auth.userData">{{ auth.userData.name }}</span></button>
             <button mat-button (click)="logout()">Logout</button>
         </div>
     </mat-toolbar-row>

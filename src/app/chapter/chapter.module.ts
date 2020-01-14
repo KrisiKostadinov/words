@@ -5,6 +5,7 @@ import { ChapterComponent } from './chapter.component';
 import { MatCardModule, MatProgressSpinnerModule, MatButtonModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LevelService } from './levels/services/level.service';
+import { ChapterRoutiongModule } from './chapter.routing.module';
 
 
 
