@@ -1,7 +1,13 @@
-export class User {
-    userId: string;
+export interface Roles {
+    admin: boolean;
+    user: boolean;
+}
+
+export interface User {
+    userId?: string;
     email: string;
-    levelsUp: number;
-    levelNow: number;
-    points: number;
+    name: string;
+    photoUrl?: string;
+    emailVerified?: any;
+    roles: Roles;
 }
