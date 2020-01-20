@@ -133,7 +133,7 @@ export class WordsComponent implements OnInit, OnDestroy {
           this.stars = [true, true, true];
         }
 
-        var userId = this.auth.userData.uid;
+        var userId = this.auth.getUserId();
         var levelId = this.route.snapshot.params['id'];
         var data = {
           points: this.points,

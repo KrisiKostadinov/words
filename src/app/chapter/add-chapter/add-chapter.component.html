@@ -1,1 +1,24 @@
-<p class="text-danger">add-chapter works!</p>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6 mt-4">
+        <form [formGroup]="chapterForm" (ngSubmit)="onSubmit()" class="text-center p-4 bg-light h-100 rounded shadow">
+            <h2 class="text-center my-4">Добавяне на глава</h2>
+            <div class="col">
+              <mat-form-field>
+                <input matInput formControlName="name" type="text" autocomplete="off" autofocus placeholder="Име на галвата">
+              </mat-form-field>
+            </div>
+            <div dropzone [class.hovering]="isHovering">
+              <img *ngIf="previewUrl" [src]="previewUrl" class="w-100 h-100">
+              <input (change)="onDrop($event.target.files)" multiple formControlName="img" type="file" accept="image/*">
+              <div *ngFor="let f of files">
+                <app-upload-task-chapter [file]="f" (emitter)="loadPath($event)"></app-upload-task-chapter>
+              </div>
+            </div>
+            <div class="btn-group">
+              <button mat-button [disabled]="chapterForm.invalid" color="primary">Добави</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-3"></div>
+</div>

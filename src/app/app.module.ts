@@ -17,14 +17,11 @@ import { AuthRoutingModule } from './auth/auth.routing.module';
 import { AuthInterceptor } from './auth/interceptors/auth-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChapterModule } from './chapter/chapter.module';
-import { AddChapterComponent } from './chapter/add-chapter/add-chapter.component';
 import { ChapterRoutiongModule } from './chapter/chapter.routing.module';
-
 @NgModule({
   declarations: [
     AppComponent,
-    LettersComponent,
-    AddChapterComponent
+    LettersComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

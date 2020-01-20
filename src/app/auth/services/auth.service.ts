@@ -5,33 +5,32 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import * as admin from 'firebase'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userData: any;
+  user: Observable<User>;
+  userId: string;
+  isAdmin;
 
   constructor(private af: AngularFireAuth,
     private afs: AngularFirestore,
     private router:Router,
     private ngZone: NgZone) {
+      
       this.af.authState.subscribe(user => {
         if (user) {
-          this.afs.doc<User>(`profiles/${user.uid}`).valueChanges().subscribe(credential => {
-            this.userData = credential;
-            localStorage.setItem('user', JSON.stringify(credential));
-
-            console.log(credential);
-          });
-
-          JSON.parse(localStorage.getItem('user'));
+          this.user = this.afs.doc<User>(`profiles/${user.uid}`).valueChanges();
         } else {
-          localStorage.setItem('user', null);
-          JSON.parse(localStorage.getItem('user'));
         }
       });
+    }
+    
+    getUserId() {
+      return firebase.auth().currentUser.uid;
     }
 
     emailSignUp(email: string, password: string) {
@@ -43,7 +42,8 @@ export class AuthService {
     }
 
     emailSignIn(email: string, password: string) {
-      return this.af.auth.signInWithEmailAndPassword(email, password).then(() => {
+      return this.af.auth.signInWithEmailAndPassword(email, password).then(credential => {
+        this.updateUserData(credential.user);
         this.router.navigate(['/']);
       });
     }
@@ -53,18 +53,11 @@ export class AuthService {
       return (user !== null) ? true : false;
     }
 
-    get isInAdmin(): boolean {
-      if(this.isLoggedIn && this.userData) {
-        console.log(this.userData);
-        return this.userData.roles.admin == true;
-      }
-
-      return false;
-    }
-
     signOut() {
       return this.af.auth.signOut().then(() => {
-        localStorage.removeItem('user');
+        localStorage.clear();
+        this.user = null;
+
         this.router.navigate(['account/login']);
       })
     }
@@ -72,7 +65,6 @@ export class AuthService {
     signInWithGoogle() {
       this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(credential => {
         this.updateUserData(credential.user);
-        this.userData = credential.user;
 
         this.ngZone.run(() => {
           this.router.navigate(['/']);
@@ -92,8 +84,7 @@ export class AuthService {
       const userRef: AngularFirestoreDocument<any> = this.afs.doc(`profiles/${user.uid}`);
       const data: User = {
         userId: user.uid,
-        email: user.email,
-        name: user.displayName
+        email: user.email
       }
 
       console.log(user);

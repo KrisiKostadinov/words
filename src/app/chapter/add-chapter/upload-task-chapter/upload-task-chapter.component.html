@@ -1,0 +1,12 @@
+<div *ngIf="percentage | async as pct">
+    <mat-spinner [value]="pct" max="100"></mat-spinner>
+    {{ pct | number }}%
+</div>
+
+<div *ngIf="snapshot | async as snap">
+    {{ snap.bytesTransferred }} of {{ snap.tatalBates }}
+</div>
+
+<div *ngIf="downloadURL as url">
+    <img class="w-100 h-100" [src]="url">
+</div>
