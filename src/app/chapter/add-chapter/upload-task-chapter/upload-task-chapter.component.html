@@ -1,10 +1,10 @@
 <div *ngIf="percentage | async as pct">
-    <mat-spinner [value]="pct" max="100"></mat-spinner>
+    <mat-spinner class="mx-auto" [value]="pct" max="100"></mat-spinner>
     {{ pct | number }}%
 </div>
 
 <div *ngIf="snapshot | async as snap">
-    {{ snap.bytesTransferred }} of {{ snap.tatalBates }}
+    {{ snap.bytesTransferred }} of {{ snap.totalBates }}
 </div>
 
 <div *ngIf="downloadURL as url">

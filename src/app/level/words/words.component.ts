@@ -5,6 +5,7 @@ import { AnimationWord } from './animations/word.animation';
 import { LevelUpAnimation } from './animations/level-up.animation';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { LevelService } from 'src/app/chapter/levels/services/level.service';
+import { ChapterService } from 'src/app/chapters/services/chapter.service';
 
 @Component({
   selector: 'app-words',
@@ -21,6 +22,10 @@ export class WordsComponent implements OnInit, OnDestroy {
   stateLevelUp = "closed";
   stateBonus = "closed";
 
+  levels: any;
+  chapterId: string;
+  nextLevelId: string;
+  
   isShowIncorrectWords: boolean = false;
   
   currentWord: string = "";
@@ -44,13 +49,26 @@ export class WordsComponent implements OnInit, OnDestroy {
   constructor(private wordsService: WordsService,
     private route: ActivatedRoute, 
     private auth: AuthService,
-    private levelService: LevelService,
-    private router: Router,
-    private ngZone: NgZone) {
+    private levelService: LevelService) {
   }
 
   ngOnInit() {
     this.initLevel();
+  }
+
+  getNextLevel() {
+    this.chapterId = this.route.snapshot.params['chapterId'];
+    this.levelService.getAllById('P24hcNIl1GUARKSQ9FZd').subscribe(levels => {
+      this.levels = levels;
+      
+      console.log(levels);
+
+      for(var i = 0; i < levels.length; i++) {
+        if(levels[i].id == this.nextLevelId && levels[i + 1]) {
+          this.nextLevelId = levels[i + 1].id;
+        }
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -94,6 +112,28 @@ export class WordsComponent implements OnInit, OnDestroy {
 
     this.wordsService.getAllWordsInLevel(levelId).subscribe(data => {
       this.wordsObj = data;
+      var words = [];
+      this.nextLevelId = levelId;
+
+      this.getNextLevel();
+
+      for(var word of data['words']) {
+        words.push({
+          isShow: false,
+          word: word
+        });
+      }
+
+      var bonusWords = [];
+
+      for(var word of data['bonusWords']) {
+        bonusWords.push({
+          isShow: false,
+          word: word
+        });
+      }
+      this.wordsObj['words'] = words;
+      this.wordsObj['bonusWords'] = bonusWords;
       this.totalCountWords = this.wordsObj['words'].length;
       this.totalBonusWordsCount = this.wordsObj['bonusWords'].length;
     });
@@ -204,7 +244,7 @@ export class WordsComponent implements OnInit, OnDestroy {
     this.isShowIncorrectWords = !this.isShowIncorrectWords;
   }
 
-  nextLevel(levelId) {
-    this.initLevel(levelId, 0);
+  nextLevel(nextLevelId) {
+    this.initLevel(nextLevelId, 0);
   }
 }

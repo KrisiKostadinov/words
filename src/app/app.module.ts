@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth/interceptors/auth-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChapterModule } from './chapter/chapter.module';
 import { ChapterRoutiongModule } from './chapter/chapter.routing.module';
+
 @NgModule({
   declarations: [
     AppComponent,

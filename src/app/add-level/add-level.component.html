@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Дообави ниво</h2>
+<mat-dialog-content>
+    <ol>
+        <li>
+          <mat-form-field>
+            <input matInput [(ngModel)]="letters" type="text" placeholder="Букви">
+          </mat-form-field>
+        </li>
+        <li>
+            <mat-form-field>
+              <input matInput [(ngModel)]="word" type="text" placeholder="Дума">
+            </mat-form-field>
+            <button mat-button (click)="addWords()" color="primary">Добави</button>
+        </li>
+        <li>
+            <mat-form-field>
+              <input matInput [(ngModel)]="bonusWord" type="text" placeholder="Бонус дума">
+            </mat-form-field>
+            <button mat-button (click)="addBonusWords()" color="primary">Добави</button>
+        </li>
+        <li>
+            <mat-form-field>
+              <input matInput [(ngModel)]="maxWords" type="number" placeholder="Максимален брой думи">
+            </mat-form-field>
+        </li>
+    </ol>
+    <li *ngIf="letters">
+        You chose: <i>{{letters}}</i>
+    </li>
+    <li *ngIf="words">
+        Думи: 
+        <i *ngFor="let word of words as word">"{{ word }}" </i>
+    </li>
+    <li *ngIf="bonusWords">
+      Бонус думи: 
+      <i *ngFor="let bWord of bonusWords as bWord">"{{ bWord }}" </i>
+    </li>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="addWordsToLevel()" [mat-dialog-close]="data">Дообави</button>
+    <button mat-button color="warn" mat-dialog-close="">Откажи</button>
+</mat-dialog-actions>

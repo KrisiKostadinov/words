@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6 mt-4">
+      <div *ngIf="isSubmited" class="submited alert-success shadow rounded text-center">
+        <p class="text-success p-2">Създадено успешно!</p>
+      </div>
         <form [formGroup]="chapterForm" (ngSubmit)="onSubmit()" class="text-center p-4 bg-light h-100 rounded shadow">
             <h2 class="text-center my-4">Добавяне на глава</h2>
             <div class="col">
@@ -8,11 +11,15 @@
                 <input matInput formControlName="name" type="text" autocomplete="off" autofocus placeholder="Име на галвата">
               </mat-form-field>
             </div>
-            <div dropzone [class.hovering]="isHovering">
+            <div class="upload" dropzone [class.hovering]="isHovering">
               <img *ngIf="previewUrl" [src]="previewUrl" class="w-100 h-100">
-              <input (change)="onDrop($event.target.files)" multiple formControlName="img" type="file" accept="image/*">
+              <button mat-button color="primary">Изберете файл</button>
+              <input (change)="onDrop($event.target.files)" multiple type="file" accept="image/*">
               <div *ngFor="let f of files">
                 <app-upload-task-chapter [file]="f" (emitter)="loadPath($event)"></app-upload-task-chapter>
+              </div>
+              <div class="errors" *ngIf="errors">
+                <p *ngFor="let error of errors as error" class="text-danger">{{ error }}</p>
               </div>
             </div>
             <div class="btn-group">

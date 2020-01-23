@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChaptersComponent } from '../chapters/chapters.component';
 import { ChapterComponent } from './chapter.component';
-import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule } from '@angular/material';
+import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDialogModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LevelService } from './levels/services/level.service';
 import { ChapterRoutiongModule } from './chapter.routing.module';
 import { AddChapterComponent } from './add-chapter/add-chapter.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadTaskChapterComponent } from './add-chapter/upload-task-chapter/upload-task-chapter.component';
+import { AddLevelComponent } from '../add-level/add-level.component';
 
 
 
@@ -17,7 +18,8 @@ import { UploadTaskChapterComponent } from './add-chapter/upload-task-chapter/up
     ChaptersComponent,
     ChapterComponent,
     AddChapterComponent,
-    UploadTaskChapterComponent
+    UploadTaskChapterComponent,
+    AddLevelComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,9 @@ import { UploadTaskChapterComponent } from './add-chapter/upload-task-chapter/up
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    FormsModule
   ],
   exports: [
     ChaptersComponent,
@@ -37,10 +41,14 @@ import { UploadTaskChapterComponent } from './add-chapter/upload-task-chapter/up
     UploadTaskChapterComponent,
     MatProgressSpinnerModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [
     LevelService
-  ]
+  ],
+  entryComponents: [AddLevelComponent]
 })
 export class ChapterModule { }

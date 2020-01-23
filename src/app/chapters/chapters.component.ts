@@ -17,6 +17,7 @@ export class ChaptersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.chapterService.getAll().subscribe(data => {
       this.chapters = data;
+      console.log(data);
     });
   }
 

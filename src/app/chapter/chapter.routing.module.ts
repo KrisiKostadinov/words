@@ -10,8 +10,8 @@ const routes: Routes = [
         children: [
             { path: 'add', component: AddChapterComponent },
             { path: ':id', component: ChapterComponent },
-            { path: 'level/:id', component: WordsComponent },
-            { path: 'level/:nextLevel', component: WordsComponent }
+            { path: ':chapterId/level/:id', component: WordsComponent },
+            { path: ':chapterId/level/:nextLevelId', component: WordsComponent }
         ],
     }
 ];

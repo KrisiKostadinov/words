@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="row w-100 d-flex justify-content-center">
-        <mat-spinner *ngIf="!levels"></mat-spinner>
-        <mat-card *ngFor="let level of levels" routerLink="/chapter/level/{{ level.id }}">
+    <mat-spinner class="mx-auto" *ngIf="!levels"></mat-spinner>
+    <div class="row w-100 d-flex justify-content-center" *ngIf="levels && levels.length > 0">
+        <mat-card *ngFor="let level of levels" routerLink="/chapter/{{chapterId}}/level/{{ level.id }}">
             <mat-card-header class="d-flex justify-content-between">
                 <mat-card-title>
                     <i class="material-icons" *ngFor="let star of level.stars">
@@ -21,4 +21,11 @@
             </mat-card-actions>
         </mat-card>
     </div>
+</div>
+
+<h2 *ngIf="levels && levels.length == 0" class="text-danger text-center">Няма нива</h2>
+<div class="text-center" *ngIf="auth.user">
+    <span *ngIf="auth.user.roles">
+        <button mat-raised-button color="primary" *ngIf="auth.user.roles.admin" (click)="addLevel()">Добави ниво</button>
+    </span>
 </div>

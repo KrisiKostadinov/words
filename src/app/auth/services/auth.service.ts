@@ -11,8 +11,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
-  user: Observable<User>;
+  user: User;
   userId: string;
   isAdmin;
 
@@ -23,7 +22,10 @@ export class AuthService {
       
       this.af.authState.subscribe(user => {
         if (user) {
-          this.user = this.afs.doc<User>(`profiles/${user.uid}`).valueChanges();
+          this.afs.doc<User>(`profiles/${user.uid}`).valueChanges().subscribe(user => {
+            localStorage.setItem('user', JSON.stringify(user));
+            this.user = user;
+          });
         } else {
         }
       });

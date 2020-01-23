@@ -103,7 +103,7 @@
         </ul>
         <div class="btn-group d-flex justify-content-between">
             <button routerLink="/chapter/1" mat-raised-button>Виж всички</button>
-            <button mat-raised-button color="primary" routerLink="/level/{{wordsObj.nextLevel}}" (click)="nextLevel(wordsObj.nextLevel)">Следващо ниво</button>
+            <button mat-raised-button color="primary" routerLink="/chapter/{{chapterId}}/level/{{nextLevelId}}" (click)="nextLevel(nextLevelId)">Следващо ниво</button>
         </div>
     </div>
 </ng-template>

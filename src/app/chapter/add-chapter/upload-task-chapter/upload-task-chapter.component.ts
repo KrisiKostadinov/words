@@ -24,7 +24,7 @@ export class UploadTaskChapterComponent implements OnInit {
   snapshot: Observable<any>;
   downloadURL;
 
-  constructor(private st: AngularFireStorage, private db: AngularFirestore, private chapterService: ChapterService) { }
+  constructor(private st: AngularFireStorage) { }
 
   ngOnInit() {
     this.startUpload();
@@ -38,7 +38,6 @@ export class UploadTaskChapterComponent implements OnInit {
     this.snapshot = this.task.snapshotChanges().pipe(
       finalize(async() => {
         this.downloadURL = await ref.getDownloadURL().toPromise();
-        this.chapterService.add({ downloadURL: this.downloadURL, path });
         this.percentage = null;
         this.snapshot = null;
         this.emitter.emit({ downloadURL: this.downloadURL, path });
