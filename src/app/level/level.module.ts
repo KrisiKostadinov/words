@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { ChapterService } from '../chapters/services/chapter.service';
 import { RouterModule } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,9 @@ import { MatProgressSpinnerModule } from '@angular/material';
     CommonModule,
     MaterialModule,
     RouterModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,

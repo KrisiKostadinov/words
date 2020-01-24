@@ -6,6 +6,7 @@ import { LevelUpAnimation } from './animations/level-up.animation';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { LevelService } from 'src/app/chapter/levels/services/level.service';
 import { ChapterService } from 'src/app/chapters/services/chapter.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-words',
@@ -17,7 +18,7 @@ import { ChapterService } from 'src/app/chapters/services/chapter.service';
   ]
 })
 export class WordsComponent implements OnInit, OnDestroy {
-  isOpen = "open";
+  isOpen = "closed";
   stateLevelUpStatistics = "closed";
   stateLevelUp = "closed";
   stateBonus = "closed";
@@ -58,10 +59,8 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   getNextLevel() {
     this.chapterId = this.route.snapshot.params['chapterId'];
-    this.levelService.getAllById('P24hcNIl1GUARKSQ9FZd').subscribe(levels => {
+    this.levelService.getAllById(this.chapterId).subscribe(levels => {
       this.levels = levels;
-      
-      console.log(levels);
 
       for(var i = 0; i < levels.length; i++) {
         if(levels[i].id == this.nextLevelId && levels[i + 1]) {
@@ -141,9 +140,13 @@ export class WordsComponent implements OnInit, OnDestroy {
   
   addLetter(letter) {
     this.check(letter);
+  }
 
-
-
+  removeWord() {
+    this.isOpen = "closed";
+    setTimeout(() => {
+      this.currentWord = "";
+    }, 1000);
   }
 
   check(letter) {
@@ -151,8 +154,13 @@ export class WordsComponent implements OnInit, OnDestroy {
     this.isOpen = "open";
   }
   
-  checkWord() {
+  checkWord(wordFromInput) {
+    if(wordFromInput) {
+      this.currentWord = wordFromInput;
+    }
+
     var currentWordExist = false;
+
     for(let word of this.wordsObj['words']) {
       if(word.word == this.currentWord && word.isShow == false) {
         this.successWords++;
