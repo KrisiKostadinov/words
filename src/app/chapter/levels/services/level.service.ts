@@ -14,6 +14,14 @@ export class LevelService {
     return this.fs.collection('levels').add(data);
   }
 
+  editLevelToChapter(data) {
+    return this.fs.collection('levels').doc(data.levelId).update(data);
+  }
+
+  removeLevel(levelId) {
+    return this.fs.collection('levels').doc(levelId).delete();
+  }
+
   getLastLevel() {
       return this.fs.collection('levels', ref => ref.orderBy('number', 'desc').limit(1));
   }

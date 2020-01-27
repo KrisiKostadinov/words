@@ -1,0 +1,7 @@
+.list-group li {
+    cursor: pointer;
+}
+
+.list-group li i:hover {
+    font-weight: bold;
+}

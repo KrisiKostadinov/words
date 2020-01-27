@@ -1,7 +1,9 @@
+<div class="loading">
+    <mat-spinner class="mx-auto" *ngIf="!levels || isLoading"></mat-spinner>
+</div>
 <div class="container">
-    <mat-spinner class="mx-auto" *ngIf="!levels"></mat-spinner>
     <div class="row w-100 d-flex justify-content-center" *ngIf="levels && levels.length > 0">
-        <mat-card *ngFor="let level of levels" routerLink="/chapter/{{chapterId}}/level/{{ level.id }}">
+        <mat-card *ngFor="let level of levels; let i = index">
             <mat-card-header class="d-flex justify-content-between">
                 <mat-card-title>
                     <i class="material-icons" *ngFor="let star of level.stars">
@@ -9,10 +11,14 @@
                         <span *ngIf="!star">star_border</span>
                     </i>
                 </mat-card-title>
-                <h2>{{ level.number }}</h2>
-                <button mat-mini-fab color="light">
+                <h2 routerLink="/chapter/{{chapterId}}/level/{{level.id}}">{{ level.number }}</h2>
+                <button mat-mini-fab color="light" (click)="isShowSettings(i)">
                     <i class="material-icons">settings</i>
                 </button>
+                <ul class="settings-box" #settings>
+                    <li (click)="editLevel(level)">Редактирай</li>
+                    <li (click)="removeLevel(level)">Изтрии</li>
+                </ul>
             </mat-card-header>
             <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80">
             <mat-card-actions>

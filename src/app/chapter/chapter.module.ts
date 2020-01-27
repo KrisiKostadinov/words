@@ -5,11 +5,12 @@ import { ChapterComponent } from './chapter.component';
 import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDialogModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LevelService } from './levels/services/level.service';
-import { ChapterRoutiongModule } from './chapter.routing.module';
 import { AddChapterComponent } from './add-chapter/add-chapter.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UploadTaskChapterComponent } from './add-chapter/upload-task-chapter/upload-task-chapter.component';
-import { AddLevelComponent } from '../add-level/add-level.component';
+import { AddLevelComponent } from './levels/services/add-level/add-level.component';
+import { EditLevelComponent } from './levels/services/edit-level/edit-level.component';
+import { RemoveLevelComponent } from './levels/services/remove-level/remove-level.component';
 
 
 
@@ -19,7 +20,9 @@ import { AddLevelComponent } from '../add-level/add-level.component';
     ChapterComponent,
     AddChapterComponent,
     UploadTaskChapterComponent,
-    AddLevelComponent
+    AddLevelComponent,
+    EditLevelComponent,
+    RemoveLevelComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +52,6 @@ import { AddLevelComponent } from '../add-level/add-level.component';
   providers: [
     LevelService
   ],
-  entryComponents: [AddLevelComponent]
+  entryComponents: [AddLevelComponent, EditLevelComponent, RemoveLevelComponent]
 })
 export class ChapterModule { }

@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Редактирай ниво {{ data.editLevelNumber }}</h2>
+<mat-dialog-content>
+    <ol>
+        <li>
+          <mat-form-field>
+            <input matInput [(ngModel)]="data.letters" type="text" placeholder="Букви">
+          </mat-form-field>
+        </li>
+        <li>
+            <mat-form-field>
+              <input matInput [(ngModel)]="currentWord" type="text" placeholder="Дума">
+            </mat-form-field>
+            <button mat-button (click)="addWords()" color="primary">Добави</button>
+        </li>
+        <li>
+            <mat-form-field>
+              <input matInput [(ngModel)]="currentBonusWord" type="text" placeholder="Бонус дума">
+            </mat-form-field>
+            <button mat-button (click)="addBonusWords()" color="primary">Добави</button>
+        </li>
+        <li>
+            <mat-form-field>
+              <input matInput [(ngModel)]="maxWords" type="number" placeholder="Максимален брой думи">
+            </mat-form-field>
+        </li>
+    </ol>
+    <ul class="list-group">
+      <li class="list-group-item" *ngIf="data.letters">
+        Букви: <i class="text-primary">{{data.letters}}</i>
+      </li>
+      <li class="list-group-item" *ngIf="data.words">
+        Думи: 
+        <i title="Изтрии думата" class="text-primary" *ngFor="let word of data.words as word" (click)="removeWord($event)">{{ word }} </i>
+      </li>
+      <li class="list-group-item" *ngIf="data.bonusWords">
+        Бонус думи: 
+        <i title="Изтрии думата" class="text-primary" *ngFor="let bWord of data.bonusWords as bWord" (click)="removeBonusWord($event)">{{ bWord }} </i>
+      </li>
+    </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data">Редактирай</button>
+    <button mat-button color="warn" mat-dialog-close="">Откажи</button>
+</mat-dialog-actions>

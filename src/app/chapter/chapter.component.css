@@ -15,3 +15,44 @@ button {
 material-icons span {
     display: flex;
 }
+
+mat-card-header {
+    position: relative;
+}
+
+.settings-box {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #222222;
+    color: #ffffff;
+    padding: 1em;
+    bottom: -200%;
+    border-radius: 0.2em;
+    animation: show-in-settings-box 0.2s forwards;
+    box-shadow: 0 0 2px #222222;
+    list-style-type: none;
+}
+
+.settings-box li:hover {
+    color: #428BCA;
+}
+
+@keyframes show-in-settings-box {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.loading mat-spinner {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    left: calc(50% - 60px);
+    top: calc(50% - 60px);
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
