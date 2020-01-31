@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AddLevelComponent } from './levels/services/add-level/add-level.component';
 import { EditLevelComponent } from './levels/services/edit-level/edit-level.component';
 import { RemoveLevelComponent } from './levels/services/remove-level/remove-level.component';
+import { Group } from './models/group.model';
 
 @Component({
   selector: 'app-chapter',
@@ -17,9 +18,46 @@ import { RemoveLevelComponent } from './levels/services/remove-level/remove-leve
 })
 export class ChapterComponent implements OnInit, OnDestroy {
   levels;
-  isLoading: boolean = false;
+  displayedLevels;
 
-  @ViewChildren("settings") private settings: QueryList<ElementRef>;
+  isLoading: boolean = false;
+  
+  groups: Group[] = [
+    {
+      name: "Basic",
+      filters: [
+        {
+          filter: "Само харесани",
+          number: 1
+        },
+        {
+          filter: "Само преминати",
+          number: 2
+        },
+        {
+          filter: "Всички",
+          number: 3
+        },
+      ]
+    },
+    {
+      name: "Звезди",
+      filters: [
+        {
+          filter: "1 Звезда",
+          number: 4
+        },
+        {
+          filter: "2 Звезди",
+          number: 5
+        },
+        {
+          filter: "3 Звезди",
+          number: 6
+        },
+      ]
+    }
+  ];
   
   letters: string;
   words: string[] = [];
@@ -32,6 +70,24 @@ export class ChapterComponent implements OnInit, OnDestroy {
     public auth: AuthService,
     private route: ActivatedRoute,
     private dialog: MatDialog) {
+  }
+
+  filterFunction(number) {
+    if(number == 1) {
+      this.displayedLevels = this.displayedLevels.filter(l => l.liked === true);
+    } else if(number == 2) {
+      this.displayedLevels = this.levels.filter(l => l.stars[0] === true);
+    } else if(number == 3) {
+      this.displayedLevels = this.levels;
+    } else if(number == 4) {
+      this.displayedLevels = this.levels.filter(l => l.stars[0] === true);
+    } else if(number == 5) {
+      this.displayedLevels = this.levels.filter(l => l.stars[1] === true);
+    } else if(number == 6) {
+      this.displayedLevels = this.levels.filter(l => l.stars[2] === true);
+    } else {
+      this.displayedLevels = this.levels;
+    }
   }
 
   editLevel(level) {
@@ -71,13 +127,22 @@ export class ChapterComponent implements OnInit, OnDestroy {
     });
   }
 
-  isShowSettings(index) {
-    let nativeElement = this.settings.toArray()[index].nativeElement;
-    console.log(nativeElement);
-    nativeElement.style.display =
-      nativeElement.style.display === "none" || !nativeElement.style.display
-        ? "block"
-        : "none";
+  back() {
+    window.history.back();
+  }
+
+  gameForSeconds(level) {
+
+  }
+
+  likeButton(level) {
+    let userId = this.auth.getUserId();
+    this.levelService.likeLevel(level.id, userId);
+  }
+
+  dislikesButton(level) {
+    let userId = this.auth.getUserId();
+    this.levelService.dislikeLevel(level.id, userId);
   }
 
   ngOnInit() {
@@ -90,23 +155,43 @@ export class ChapterComponent implements OnInit, OnDestroy {
 
     
     this.levelService.getAll(this.chapterId).subscribe(data => {
-      this.levels = data;
-      console.log(data);
+      this.displayedLevels = data;
+
+      for(let level of this.displayedLevels) {
+        level.stars = [false, false, false];
+      }
+
       if(data.length > 0) {
         this.levelService.getLevelStatistics(userData.userId).subscribe(data => {
-          console.log(data);
           for(let i = 0; i < data.length; i++) {
-            for(let j = 0; j < this.levels.length; j++) {
-              if(data[i].id == this.levels[j].id) {
-                this.levels[j].stars = data[j].stars;
+            for(let j = 0; j < this.displayedLevels.length; j++) {
+              if(data[i].id == this.displayedLevels[j].id) {
+                this.displayedLevels[j].stars = data[i].stars;
               }
             }
           }
-
-
         });
+
+        for(let i = 0; i < this.displayedLevels.length; i++) {
+          this.displayedLevels[i].liked = this.isLiked(this.displayedLevels[i]);
+        }
       }
+      
+      this.levels = this.displayedLevels;
     });
+  }
+
+  isLiked(level) {
+    if(!level.likes) {
+      return false;
+    }
+
+    for(let i = 0; i < level.likes.length; i++) {
+      if(level.likes[i] == this.auth.getUserId()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   ngOnDestroy() {
@@ -124,7 +209,7 @@ export class ChapterComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(data => {
       if(data) {
         this.isLoading = true;
-        var number = this.levels.length + 1;
+        var number = this.displayedLevels.length + 1;
         
         this.levelService.addLevelToChapter({
           words: data.words,
@@ -133,7 +218,8 @@ export class ChapterComponent implements OnInit, OnDestroy {
           chapterId: this.chapterId,
           maxWords: data.maxWords,
           number: number,
-          stars: 0
+          likes: [],
+          dislikes: []
         }).then(data => {
           this.isLoading = false;
         });

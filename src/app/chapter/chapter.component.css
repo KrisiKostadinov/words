@@ -21,16 +21,9 @@ mat-card-header {
 }
 
 .settings-box {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #222222;
-    color: #ffffff;
-    padding: 1em;
-    bottom: -200%;
-    border-radius: 0.2em;
+    display: flex;
+    color: #428BCA;
     animation: show-in-settings-box 0.2s forwards;
-    box-shadow: 0 0 2px #222222;
     list-style-type: none;
 }
 

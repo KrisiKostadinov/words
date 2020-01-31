@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChaptersComponent } from '../chapters/chapters.component';
 import { ChapterComponent } from './chapter.component';
-import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDialogModule } from '@angular/material';
+import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDialogModule, MatTooltipModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LevelService } from './levels/services/level.service';
 import { AddChapterComponent } from './add-chapter/add-chapter.component';
@@ -35,7 +35,8 @@ import { RemoveLevelComponent } from './levels/services/remove-level/remove-leve
     MatInputModule,
     ReactiveFormsModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatTooltipModule
   ],
   exports: [
     ChaptersComponent,

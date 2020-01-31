@@ -58,7 +58,6 @@ ul.words {
     justify-content: center;
     flex-wrap: wrap;
     padding: 0;
-    background-color: #22222277;
     padding: 2em;
     border-radius: 7px;
 }
@@ -74,8 +73,8 @@ ul.word {
 }
 
 ul.word > li {
-    width: 2em;
-    height: 2em;
+    width: 1.7em;
+    height: 1.7em;
     text-transform: capitalize;
     position: relative;
     border-right: 1px solid whitesmoke;
@@ -94,25 +93,35 @@ ul.letters {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 2em;
     margin-bottom: 2em;
 }
 
 ul.letters li {
-    padding: 0.2em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    padding: 0 0.7em;
+    margin: 0.2em;
+    border-radius: 2em;
+    transition: 0.2s;
+    background-color: #428bca;
 }
 
 ul.letters li span {
-    padding: 1em;
-    display: block;
-    cursor: pointer;
-    border: 1px solid;
-    background-color: #22222277;
+    position: absolute;
 }
 
-ul.letters li span:hover {
-    background-color: #428bca;
+ul.letters li:hover {
+    background-color: #222;
     color: white;
+}
+
+.letter {
+    font-size: 27px;
 }
 
 .currentWord {
@@ -156,7 +165,6 @@ ul.letters li span:hover {
 .currentWord {
     width: 100%;
     height: 100%;
-    background-color: #22222277;
 }
 
 .input-field {
@@ -298,4 +306,39 @@ input:focus {
     text-align: center;
     animation: show-in-span 1s forwards;
     text-transform: uppercase;
+}
+
+.bonus-words-completed {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: show-in-bonus-words 0.7s forwards;
+}
+
+.bonus-words-completed h2 {
+    font-size: 60px;
+}
+
+.bonus-words-completed p,
+.bonus-words-completed h2 {
+    color: #fff;
+    text-shadow: 0 0 2px #222;
+}
+
+@keyframes show-in-bonus-words {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

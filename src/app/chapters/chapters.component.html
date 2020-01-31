@@ -4,7 +4,9 @@
     <div *ngIf="chapters" class="row w-100 d-flex justify-content-center">
         <mat-card *ngFor="let chapter of chapters as chapter">
             <mat-card-header routerLink="/chapter/{{ chapter.id }}">
-                <mat-card-title>{{ chapter.name }}</mat-card-title>
+                <mat-card-title>
+                    <span>{{ chapter.name }}</span>
+                </mat-card-title>
                 <mat-card-subtitle>{{ chapter.subtitle }}</mat-card-subtitle>
             </mat-card-header>
             <img *ngIf="chapter.photos.length > 0" src="{{chapter.photos['0'].downloadURL}}">

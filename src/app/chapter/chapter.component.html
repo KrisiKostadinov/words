@@ -1,37 +1,78 @@
 <div class="loading">
-    <mat-spinner class="mx-auto" *ngIf="!levels || isLoading"></mat-spinner>
+    <mat-spinner class="mx-auto" *ngIf="!displayedLevels || isLoading"></mat-spinner>
 </div>
 <div class="container">
-    <div class="row w-100 d-flex justify-content-center" *ngIf="levels && levels.length > 0">
-        <mat-card *ngFor="let level of levels; let i = index">
-            <mat-card-header class="d-flex justify-content-between">
-                <mat-card-title>
-                    <i class="material-icons" *ngFor="let star of level.stars">
+    <div class="options mt-2 text-center bg-light rounded shadow">
+        <mat-form-field>
+            <mat-label>Филтрирай по:</mat-label>
+            <mat-select>
+                <mat-option (click)="filterFunction()">Няма</mat-option>
+                <mat-optgroup *ngFor="let group of groups" [label]="group.name">
+                    <mat-option *ngFor="let filter of group.filters" [value]="filter.filter" (click)="filterFunction(filter.number)">
+                        {{ filter.filter }}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="row w-100 d-flex justify-content-center mx-auto" *ngIf="displayedLevels && displayedLevels.length > 0">
+        <mat-card class="py-2" *ngFor="let level of displayedLevels; let i = index">
+            <mat-card-header class="d-flex justify-content-between align-items-center">
+                <mat-card-title class="my-0">
+                    <i class="material-icons text-warning" *ngFor="let star of level.stars">
                         <span *ngIf="star">star</span>
                         <span *ngIf="!star">star_border</span>
                     </i>
                 </mat-card-title>
                 <h2 routerLink="/chapter/{{chapterId}}/level/{{level.id}}">{{ level.number }}</h2>
-                <button mat-mini-fab color="light" (click)="isShowSettings(i)">
-                    <i class="material-icons">settings</i>
-                </button>
-                <ul class="settings-box" #settings>
-                    <li (click)="editLevel(level)">Редактирай</li>
-                    <li (click)="removeLevel(level)">Изтрии</li>
-                </ul>
+                <div class="settings-box">
+                    <button mat-mini-fab matTooltip="Редактирай нивото" (click)="editLevel(level)" color="primary">
+                        <i class="material-icons">edit</i>
+                    </button>
+                    <button class="mx-2" mat-mini-fab matTooltip="Изтрии нивото" (click)="removeLevel(level)" color="warn">
+                        <i class="material-icons">delete</i>
+                    </button>
+                    <button mat-mini-fab (click)="gameForSeconds(level)" color="accent">
+                        <i class="material-icons">schedule</i>
+                    </button>
+                </div>
             </mat-card-header>
             <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80">
             <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
+                <button mat-mini-fab class="mx-2 mb-2" color="primary" matTooltip="Харесва ми {{ level.likes?.length }}" matTooltipHideDelay="700" matTooltipPosition="above" (click)="likeButton(level)">
+                    <i class="material-icons">arrow_upward</i>
+                </button>
+                <button mat-mini-fab color="warn" matTooltip="Не ми харесва {{ level.dislikes?.length }}" matTooltipHideDelay="700" matTooltipPosition="above" (click)="dislikesButton(level)">
+                    <i class="material-icons">arrow_downward</i>
+                </button>
             </mat-card-actions>
+            <p *ngIf="level.likes">
+                <span *ngIf="level.liked && level.likes.length == 1">Вие харесвате това ниво</span>
+                <span *ngIf="level.liked && level.likes.length == 2">Вие и {{ level.likes.length - 1 }} друг харесва това ниво</span>
+                <span *ngIf="level.liked && level.likes.length > 2">Вие и {{ level.likes.length - 1 }} други харесвате това ниво</span>
+                <span *ngIf="level.likes.length > 1 && !level.liked">{{ level.likes.length }} други харесвате това ниво</span>
+                <span *ngIf="level.likes.length == 1 && !level.liked">{{ level.likes.length }} друг харесва това ниво</span>
+            </p>
+            <p *ngIf="level.likes?.length == 0">Няма харесвания</p>
         </mat-card>
     </div>
 </div>
 
-<h2 *ngIf="levels && levels.length == 0" class="text-danger text-center">Няма нива</h2>
+<h2 *ngIf="displayedLevels && displayedLevels.length == 0" class="text-danger text-center">Няма нива</h2>
 <div class="text-center" *ngIf="auth.user">
-    <span *ngIf="auth.user.roles">
-        <button mat-raised-button color="primary" *ngIf="auth.user.roles.admin" (click)="addLevel()">Добави ниво</button>
+    <span class="d-flex justify-content-center" *ngIf="auth.user.roles">
+        <button class="mx-2" mat-raised-button (click)="back()">
+            <i class="material-icons">keyboard_backspace</i> Назад
+        </button>
+        <div class="admin-buttons" *ngIf="auth.user.roles.admin">
+            <button class="mx-2" mat-raised-button color="primary" matTooltip="Добави ниво" (click)="addLevel()">
+                <i class="material-icons">add</i>
+                Добави ниво
+            </button>
+            <button class="mx-2" mat-raised-button color="primary" matTooltip="Редактирай главата" (click)="editChapter()">
+                <i class="material-icons">edit</i>
+                Редактирай главата
+            </button>
+        </div>
     </span>
 </div>

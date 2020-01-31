@@ -47,6 +47,10 @@ export class WordsComponent implements OnInit, OnDestroy {
   unfamiliarWords: number;
   incorrenctWords = [];
 
+  bonusWordsCompleted: boolean = false;
+
+  wordFromInput: string = "";
+
   constructor(private wordsService: WordsService,
     private route: ActivatedRoute, 
     private auth: AuthService,
@@ -55,6 +59,10 @@ export class WordsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initLevel();
+  }
+
+  back() {
+    window.history.back();
   }
 
   getNextLevel() {
@@ -154,9 +162,10 @@ export class WordsComponent implements OnInit, OnDestroy {
     this.isOpen = "open";
   }
   
-  checkWord(wordFromInput) {
-    if(wordFromInput) {
-      this.currentWord = wordFromInput;
+  checkWord() {
+    if(this.wordFromInput.length > 0) {
+      this.currentWord = this.wordFromInput;
+      this.wordFromInput = "";
     }
 
     var currentWordExist = false;
@@ -204,6 +213,14 @@ export class WordsComponent implements OnInit, OnDestroy {
         this.bonusWordsCount++;
         this.currectWordsCount += 2;
         currentWordExist = true;
+
+        if(this.wordsObj['bonusWords'].length == this.bonusWordsCount) {
+          this.bonusWordsCompleted = true;
+          setTimeout(() => {
+            this.bonusWordsCompleted = false;
+          }, 2000);
+        }
+
       }
     }
     if(currentWordExist == false) {

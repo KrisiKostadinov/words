@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChapterService } from './services/chapter.service';
 import { Subscription } from "rxjs";
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-chapters',
@@ -11,7 +12,7 @@ export class ChaptersComponent implements OnInit, OnDestroy {
   chapters;
   subscription: Subscription;
 
-  constructor(private chapterService: ChapterService) {
+  constructor(private chapterService: ChapterService, public auth: AuthService) {
   }
   
   ngOnInit() {

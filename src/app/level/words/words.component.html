@@ -1,12 +1,15 @@
 <div class="row mt-4">
     <div class="col-3 text-center">
         <ul [@isOpenBonus]="stateBonus" *ngIf="wordsObj" class="bg-primary bonus-words-list p-0 shadow">
-            <h2 class="text-center text-light">Бонус думи</h2>
+            <h2 class="text-center text-light">Бонус думи ({{ bonusWordsCount }}/{{ totalBonusWordsCount }})</h2>
             <li *ngFor="let bWord of wordsObj.bonusWords"><span *ngIf="bWord.isShow">{{ bWord.word }}</span></li>
-            <li *ngFor="let bWord of wordsObj.bonusWords"><span *ngIf="!bWord.isShow">{{ bWord.word.length }} Букви</span></li>
         </ul>
     </div>
     <div class="col-6 px-0">
+        <div *ngIf="bonusWordsCompleted" class="bonus-words-completed">
+            <h2>Поздрвления</h2>
+            <p>Позна всички бонус думи</p>
+        </div>
         <div [@levelUpTrigger]="stateLevelUp" class="level-container col-12 bg-white p-0 rounded shadow" *ngIf="!levelUp else levelUpTemp">
             <div class="level-img" style="background-image: linear-gradient(rgba(255, 0, 140, 0.205), rgba(255, 0, 140, 0.205)), url('https://images.unsplash.com/photo-1464820453369-31d2c0b651af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80');">
                 <ul class="navbar-level">
@@ -14,9 +17,9 @@
                         <i class="material-icons">settings_applications</i><span>Settings</span>
                     </li>
                     <li *ngIf="wordsObj">Ниво: {{ wordsObj.number }}</li>
-                    <li>Levels Up 2</li>
+                    <li (click)="back()">Назад</li>
                     <li>
-                        <i class="material-icons">monetization_on</i><span> {{ points }}</span>
+                        <span class="font-weight-bold text-warning">$ </span><span>{{ points }}</span>
                     </li>
                 </ul>
                 <div class="content-level p-4">
@@ -34,22 +37,24 @@
                     </ul>
                     <div class="text-center">
                         <div class="row">
-                            <div class="col-6 rounded">
-                                <div class="currentWord rounded">
-                                    <span class="currentWord-span" [@isOpen]="isOpen" class="text-uppercase">{{ currentWord }}</span>
-                                    <input *ngIf="!currentWord" type="text" [(ngModel)]="wordFromInput" autofocus class="input-field">
+                            <div class="col-6">
+                                <div class="rounded">
+                                    <div class="currentWord rounded">
+                                        <span class="currentWord-span" [@isOpen]="isOpen" class="text-uppercase">{{ currentWord }}</span>
+                                        <input *ngIf="!currentWord" type="text" [(ngModel)]="wordFromInput" autofocus class="input-field">
+                                    </div>
+                                </div>
+                                <div class="btn-group mt-4">
+                                    <button mat-raised-button color="warn" (click)="removeWord()">Изтрии думата</button>
+                                    <button mat-raised-button color="primary" class="mx-2" (click)="checkWord()">Провери думата</button>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <ul *ngIf="wordsObj else loadingBar" class="letters">
-                                    <li *ngFor="let letter of wordsObj.letters.split('')">
-                                        <span class="letter text-light text-capitalize rounded" (click)="addLetter(letter)">{{ letter }}</span>
+                                    <li *ngFor="let letter of wordsObj.letters.split('')" (click)="addLetter(letter)">
+                                        <span class="letter text-light text-capitalize rounded">{{ letter }}</span>
                                     </li>
                                 </ul>
-                                <div class="btn-group">
-                                    <button mat-raised-button color="warn" (click)="removeWord()">Изтрии дамата</button>
-                                    <button mat-raised-button color="primary" class="mx-2" (click)="checkWord(wordFromInput)">Провери думата</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -59,7 +64,7 @@
     </div>
     <div class="col-3">
         <ul *ngIf="incorrenctWords.length > 0" class="px-4 py-2 bg-primary text-light incorrect-words shadow">
-            <h4 class="text-center">Несъществуващи думи</h4>
+            <h4 class="text-center">Несъществуващи думи ({{ incorrenctWords?.length }})</h4>
             <li class="text-danger my-2 text-light" *ngFor="let word of incorrenctWords">{{ word }}</li>
         </ul>
     </div>
@@ -110,7 +115,7 @@
             </li>
         </ul>
         <div class="btn-group d-flex justify-content-between">
-            <button routerLink="/chapter/1" mat-raised-button>Виж всички</button>
+            <button routerLink="/chapter/{{chapterId}}" mat-raised-button>Виж всички</button>
             <button mat-raised-button color="primary" routerLink="/chapter/{{chapterId}}/level/{{nextLevelId}}" (click)="nextLevel(nextLevelId)">Следващо ниво</button>
         </div>
     </div>
