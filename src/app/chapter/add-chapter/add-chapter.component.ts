@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireUploadTask, AngularFireStorage } from '@angular/fire/storage';
 import { ChapterService } from 'src/app/chapters/services/chapter.service';
+import { Question } from '../bonus-level/models/question.model';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface filePath {
   downloadURL: string;
@@ -12,9 +14,50 @@ interface filePath {
 @Component({
   selector: 'app-add-chapter',
   templateUrl: './add-chapter.component.html',
-  styleUrls: ['./add-chapter.component.css']
+  styleUrls: ['./add-chapter.component.css'],
+  animations: [
+    trigger('chapterAnim', [
+      state('open', style({
+        opacity: 1,
+        transform: 'translateY(0)'
+      })),
+      state('closed',   style({
+        opacity: 0,
+        transform: 'translateY(-100px)'
+      })),
+      transition('open <=> closed', animate('600ms ease-out'))
+    ]),
+    trigger('bonusAnim', [
+      state('open', style({
+        opacity: 1,
+        transform: 'translateY(-200px)'
+      })),
+      state('closed',   style({
+        opacity: 0,
+        transform: 'translateY(0)'
+      })),
+      transition('open <=> closed', animate('600ms ease-out'))
+    ])
+  ]
 })
 export class AddChapterComponent implements OnInit {
+
+  show = false;
+  closed = true;
+
+  public get openClosed() {
+    return this.show ? 'open' : 'closed';
+  }
+  
+  public get openClosedBonusAnim() {
+    return this.closed ? 'open' : 'closed';
+  }
+
+  toggleStates() {
+    this.show = !this.show;
+    this.closed = !this.closed;
+  }
+
   isHovering: boolean;
 
   files: File[] = [];
@@ -26,6 +69,8 @@ export class AddChapterComponent implements OnInit {
   errors: string[] = [];
   isSubmited: boolean = false;
 
+  questions: Question[];
+  
   toggleHover(event: boolean) {
     this.isHovering = event;
   }
@@ -54,7 +99,11 @@ export class AddChapterComponent implements OnInit {
     if(this.files && this.files.length > 0) {
       this.chapterService.add({
         name: this.chapterForm.value.name,
-        photos: this.filesPaths
+        photos: this.filesPaths,
+        bonusLevel: {
+          isActived: false,
+          questions: this.questions
+        }
       }).then(data => {
         this.isSubmited = true;
         this.resetForm();

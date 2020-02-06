@@ -1,0 +1,33 @@
+<form [formGroup]="myForm">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ myForm.value.title || "Нов въпрос" }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field class="w-100" hintLabel="Това поле е задължително">
+        <input matInput #titleInput minlength="1" maxlength="120" placeholder="Нов въпрос" formControlName="title">
+        <mat-hint align="end">{{titleInput.value?.length || 0}} от /120/ остават {{120 - titleInput.value?.length}}</mat-hint>
+      </mat-form-field>
+      <div formArrayName="answers">
+        <div class="border container my-2" *ngFor="let answer of answers.controls; let i=index" [formGroupName]="i">
+          <mat-form-field class="w-100" hintLabel="Това поле е задължително">
+            <input matInput #input minlength="1" maxlength="120" formControlName="content" placeholder="Отговор">
+            <mat-hint align="end">{{input.value?.length || 0}} от /120/ остават {{120 - input.value?.length}}</mat-hint>
+          </mat-form-field>
+          <div class="mt-4">
+            <mat-checkbox color="primary" formControlName="isCorrected">Този отговор е верен</mat-checkbox>
+          </div>
+          <mat-action-row>
+            <button mat-raised-button color="warn" (click)="deleteAnswer(i)"><i class="material-icons">close</i> Изтрии отговор</button>
+          </mat-action-row>
+        </div>
+      </div>
+      <mat-action-row>
+        <button mat-raised-button color="primary" (click)="addAnswer()"><i class="material-icons">add</i> Добави отговор</button>
+        <button mat-raised-button color="primary" [disabled]="!myForm.valid" (click)="addQuestion()"><i class="material-icons">add</i> Добави в списъка</button>
+      </mat-action-row>
+      </mat-expansion-panel>
+  </mat-accordion>
+</form>

@@ -1,0 +1,66 @@
+<div class="bonus-level">
+  <app-add-bonus-level (addQuestionEmitter)="addQuestionData($event)"></app-add-bonus-level>
+  <mat-accordion>
+      <mat-expansion-panel *ngFor="let question of questions; let i = index" class="mt-4" [expanded]="stepParent === i" (opened)="setStepParent(i)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ question.title}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-accordion>
+            <form [formGroup]="answerForm" novalidate>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Добави отговор
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class=" pb-2 text-danger" *ngIf="touched('content') && hasError('content', 'required')">Това поле е задължително</div>
+              <mat-form-field class="w-100">
+                <input matInput type="text" placeholder="Отговор" formControlName="content">
+              </mat-form-field>
+              <mat-checkbox type="checkbox" formControlName="isCorrected">Този отговор е верен</mat-checkbox>
+              <mat-action-row>
+                <button mat-raised-button color="primary" [disabled]="answerForm.invalid" (click)="addAnswerByIndex(i)">Добави отговор</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </form>
+          <mat-expansion-panel *ngFor="let answer of question?.answers; let j = index" [expanded]="step === j" (opened)="setStep(j)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <span *ngIf="!answer.isCorrected">Грешен отговор</span>
+                  <span *ngIf="answer.isCorrected">Верен отговор</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field class="w-100">
+                <input matInput placeholder="Отговор" [(ngModel)]="answer.content" class="w-100">
+            </mat-form-field>
+            <mat-checkbox type="checkbox" [(ngModel)]="answer.isCorrected">Този отговор е верен</mat-checkbox>
+            <mat-action-row>
+              <button mat-raised-button color="warn" (click)="deleteAnswerByIndex(i, j)"><i class="material-icons">close</i> Изтрии отговор</button>
+              <button *ngIf="j != 0" mat-button type="button" color="warn" (click)="prevStep()"><i class="material-icons">chevron_left</i> Предишен</button>
+              <button *ngIf="j != question.answers.length - 1" mat-button type="button" color="primary" (click)="nextStep()"><i class="material-icons">chevron_right</i> Следващ</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+    
+        <mat-action-row>
+          <button *ngIf="i != 0" mat-button type="button" color="warn" (click)="prevStepParent()">Предишен</button >
+          <button *ngIf="i != questions.length - 1" mat-button color="primary" (click)="nextStepParent()">Следващ</button>
+          <button mat-raised-button color="warn" (click)="deleteQuestion(i)">Изтрии въпрос</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-form-field class="w-100 mt-4">
+    <mat-label>Глава</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let chapter of chapters" (click)="selectId(chapter.id)" [value]="chapter.id">
+        {{ chapter.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="addBonusLevel()">
+    <i class="material-icons">add</i> Добави бонус нивото
+  </button>
+</div>

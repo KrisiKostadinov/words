@@ -9,7 +9,7 @@
                 </mat-card-title>
                 <mat-card-subtitle>{{ chapter.subtitle }}</mat-card-subtitle>
             </mat-card-header>
-            <img *ngIf="chapter.photos.length > 0" src="{{chapter.photos['0'].downloadURL}}">
+            <img *ngIf="chapter.photos?.length > 0" src="{{chapter.photos['0'].downloadURL}}">
             <mat-card-actions>
                 <button mat-button>LIKE</button>
                 <button mat-button>SHARE</button>

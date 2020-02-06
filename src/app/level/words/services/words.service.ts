@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { WordsObj } from '../models/wordsObj.model';
+import { Chapter } from '../../models/chapter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,8 @@ export class WordsService {
 
   constructor(private fs: AngularFirestore) { }
 
-  getAllWordsInLevel(id): Observable<Object> {
-    console.log(id);
-    return this.fs.collection("levels").doc(id).valueChanges();
+  getAllWordsInLevel(id) {
+    return this.fs.collection<WordsObj>("levels").doc(id).valueChanges();
   }
 
   getNextLevel(number) {
@@ -50,5 +50,30 @@ export class WordsService {
 
   saveData(userId, levelId, data) {
     return this.fs.collection("users").doc(userId).collection("levels").doc(levelId).set(data);
+  }
+
+  getChapterById(chapterId, userId) {
+    return this.fs.collection("users").doc(userId).collection("chapters").doc(chapterId).valueChanges();
+  }
+
+  saveLevel(levelId, chapterId, userId) {
+    let sub = this.fs.collection("chapters").doc(chapterId).valueChanges().subscribe(data => {
+      sub.unsubscribe();
+      let isExist = false;
+      for(let ob of data["completedLevels"]) {
+        if(ob.levelId == levelId && ob.userId == userId) {
+          isExist = true;
+        }
+      }
+
+      if(!isExist) {
+        data["completedLevels"].push({
+          userId: userId,
+          levelId: levelId
+        });
+      }
+
+      this.fs.collection("chapters").doc(chapterId).set(data);
+    });
   }
 }

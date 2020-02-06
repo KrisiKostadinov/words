@@ -1,31 +1,40 @@
-<div class="row">
-    <div class="col-3"></div>
-    <div class="col-6 mt-4">
-      <div *ngIf="isSubmited" class="submited alert-success shadow rounded text-center">
-        <p class="text-success p-2">Създадено успешно!</p>
-      </div>
-        <form [formGroup]="chapterForm" (ngSubmit)="onSubmit()" class="text-center p-4 bg-light h-100 rounded shadow">
-            <h2 class="text-center my-4">Добавяне на глава</h2>
-            <div class="col">
-              <mat-form-field>
-                <input matInput formControlName="name" type="text" autocomplete="off" autofocus placeholder="Име на галвата">
-              </mat-form-field>
-            </div>
-            <div class="upload" dropzone [class.hovering]="isHovering">
-              <img *ngIf="previewUrl" [src]="previewUrl" class="w-100 h-100">
-              <button mat-button color="primary">Изберете файл</button>
-              <input (change)="onDrop($event.target.files)" multiple type="file" accept="image/*">
-              <div *ngFor="let f of files">
-                <app-upload-task-chapter [file]="f" (emitter)="loadPath($event)"></app-upload-task-chapter>
-              </div>
-              <div class="errors" *ngIf="errors">
-                <p *ngFor="let error of errors as error" class="text-danger">{{ error }}</p>
-              </div>
-            </div>
-            <div class="btn-group">
-              <button mat-button [disabled]="chapterForm.invalid" color="primary">Добави</button>
-            </div>
-        </form>
+<div class="px-4 mt-4">
+  <div class="toggleBtn">
+    <button (click)="toggleStates()" *ngIf="show" matTooltip="Добави глава" mat-fab color="primary">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">add</mat-icon>
+    </button>
+    <button (click)="toggleStates()" *ngIf="!show" matTooltip="Добави бонус ниво" mat-fab color="primary">
+      <mat-icon aria-hidden="false">add</mat-icon>
+    </button>
+  </div>
+  <div [@chapterAnim]="openClosed" class="rounded shadow">
+    <div *ngIf="isSubmited" class="submited alert-success shadow rounded text-center">
+      <p class="text-success p-2">Създадено успешно!</p>
     </div>
-    <div class="col-3"></div>
+      <form [formGroup]="chapterForm" (ngSubmit)="onSubmit()" class="text-center p-4 bg-light h-100 rounded shadow">
+          <h2 class="text-center my-4">Добавяне на глава</h2>
+          <div class="col">
+            <mat-form-field>
+              <input matInput formControlName="name" type="text" autocomplete="off" autofocus placeholder="Име на галвата">
+            </mat-form-field>
+          </div>
+          <div class="upload" dropzone [class.hovering]="isHovering">
+            <img *ngIf="previewUrl" [src]="previewUrl" class="w-100 h-100">
+            <button mat-button color="primary">Изберете файл</button>
+            <input (change)="onDrop($event.target.files)" multiple type="file" accept="image/*">
+            <div *ngFor="let f of files">
+              <app-upload-task-chapter [file]="f" (emitter)="loadPath($event)"></app-upload-task-chapter>
+            </div>
+            <div class="errors" *ngIf="errors">
+              <p *ngFor="let error of errors as error" class="text-danger">{{ error }}</p>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button mat-button [disabled]="chapterForm.invalid" color="primary">Добави</button>
+          </div>
+      </form>
+  </div>
+  <div class="rounded shadow bonusLevel" [@bonusAnim]="openClosedBonusAnim">
+    <app-bonus-level></app-bonus-level>
+  </div>
 </div>

@@ -199,7 +199,7 @@ export class WordsComponent implements OnInit, OnDestroy {
         };
         
         this.wordsService.saveData(userId, levelId, data).then(data => {
-          console.log(data);
+          this.wordsService.saveLevel(levelId, this.chapterId, userId);
         });
       }
     }

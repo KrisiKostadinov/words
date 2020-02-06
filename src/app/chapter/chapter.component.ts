@@ -10,6 +10,7 @@ import { AddLevelComponent } from './levels/services/add-level/add-level.compone
 import { EditLevelComponent } from './levels/services/edit-level/edit-level.component';
 import { RemoveLevelComponent } from './levels/services/remove-level/remove-level.component';
 import { Group } from './models/group.model';
+import { BonusLevelComponent } from './bonus-level/bonus-level.component';
 
 @Component({
   selector: 'app-chapter',
@@ -66,8 +67,13 @@ export class ChapterComponent implements OnInit, OnDestroy {
 
   chapterId: string;
 
+  chapter;
+
+  isCompletedLevels: boolean = false;
+
   constructor(private levelService: LevelService,
     public auth: AuthService,
+    private chapterService: ChapterService,
     private route: ActivatedRoute,
     private dialog: MatDialog) {
   }
@@ -145,18 +151,49 @@ export class ChapterComponent implements OnInit, OnDestroy {
     this.levelService.dislikeLevel(level.id, userId);
   }
 
+  bonusWindow() {
+    this.dialog.open(BonusLevelComponent);
+  }
+
   ngOnInit() {
     this.initChapter();
+
+    this.checkBonusLevel()
+  }
+
+  checkBonusLevel() {
+    let userId = JSON.parse(localStorage.getItem("user")).userId;
+    let sub = this.levelService.getAll(this.chapterId).subscribe(levels => {
+      sub.unsubscribe();
+      let levelsCount = levels.length;
+      
+      sub = this.chapterService.getChapterById(this.chapterId).subscribe(chapterData => {
+        sub.unsubscribe();
+        let chapter = chapterData as Chapter;
+
+        if(chapter.completedLevels) {
+          let totalLevelCount = chapter.completedLevels.filter(u => u.userId === userId).length;
+          if(levelsCount === totalLevelCount) {
+            this.isCompletedLevels = true;
+          }
+
+        }
+        console.log(chapterData);
+      });
+    });
   }
 
   initChapter() {
     var userData = JSON.parse(localStorage.getItem('user'));
     this.chapterId = this.route.snapshot.params['id'];
 
-    
     this.levelService.getAll(this.chapterId).subscribe(data => {
       this.displayedLevels = data;
-
+      let subBonus = this.chapterService.checkBonusById(this.chapterId).subscribe(data => {
+        this.chapter = data;
+        subBonus.unsubscribe();
+      });
+      
       for(let level of this.displayedLevels) {
         level.stars = [false, false, false];
       }

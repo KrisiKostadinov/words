@@ -49,3 +49,10 @@ mat-card-header {
     transform: translate(-50%, -50%);
     z-index: 100;
 }
+
+mat-icon {
+    font-size: 2.2em;
+    margin-right: 1em;
+    color: #428BCA;
+    cursor: pointer;
+}

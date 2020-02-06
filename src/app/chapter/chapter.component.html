@@ -2,7 +2,10 @@
     <mat-spinner class="mx-auto" *ngIf="!displayedLevels || isLoading"></mat-spinner>
 </div>
 <div class="container">
-    <div class="options mt-2 text-center bg-light rounded shadow">
+    <div class="options mt-2 text-center bg-light rounded shadow d-flex justify-content-center align-items-center">
+        <mat-icon *ngIf="chapter?.bonusLevel?.isActived" matBadge="1" matBadgeColor="warn" (click)="bonusWindow()">card_giftcard</mat-icon>
+        <mat-icon *ngIf="!isCompletedLevels" (click)="bonusWindow()">card_giftcard</mat-icon>
+        <mat-icon *ngIf="isCompletedLevels" (click)="bonusWindow()" matBadge="1">card_giftcard</mat-icon>
         <mat-form-field>
             <mat-label>Филтрирай по:</mat-label>
             <mat-select>
@@ -25,11 +28,11 @@
                     </i>
                 </mat-card-title>
                 <h2 routerLink="/chapter/{{chapterId}}/level/{{level.id}}">{{ level.number }}</h2>
-                <div class="settings-box">
-                    <button mat-mini-fab matTooltip="Редактирай нивото" (click)="editLevel(level)" color="primary">
+                <div class="settings-box" *ngIf="auth.user as user">
+                    <button *ngIf="user.roles.admin" mat-mini-fab matTooltip="Редактирай нивото" (click)="editLevel(level)" color="primary">
                         <i class="material-icons">edit</i>
                     </button>
-                    <button class="mx-2" mat-mini-fab matTooltip="Изтрии нивото" (click)="removeLevel(level)" color="warn">
+                    <button *ngIf="user.roles.admin" class="mx-2" mat-mini-fab matTooltip="Изтрии нивото" (click)="removeLevel(level)" color="warn">
                         <i class="material-icons">delete</i>
                     </button>
                     <button mat-mini-fab (click)="gameForSeconds(level)" color="accent">

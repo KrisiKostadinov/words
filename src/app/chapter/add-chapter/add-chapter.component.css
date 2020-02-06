@@ -10,6 +10,20 @@
     animation: show-in 0.2s forwards;
 }
 
+.toggleBtn {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    z-index: 100;
+}
+
+.bonusLevel {
+    width: 70%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2em;
+}
+
 .errors p {
     opacity: 0;
     animation: show-in 0.2s forwards;

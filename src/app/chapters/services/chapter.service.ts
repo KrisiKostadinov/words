@@ -11,11 +11,23 @@ export class ChapterService {
     
   }
 
+  checkBonusById(chapterId) {
+    return this.fs.collection('chapters').doc(chapterId).valueChanges();
+  }
+
   add(data) {
     return this.fs.collection("chapters").add(data);
   }
   
   getAll() {
-    return this.fs.collection("chapters").valueChanges({ idField: "id" });
+    return this.fs.collection<Chapter>("chapters").valueChanges({ idField: "id" });
+  }
+
+  addBonusLevel(chapterId, chapter) {
+    return this.fs.collection(`chapters`).doc(chapterId).set(chapter);
+  }
+  
+  getChapterById(chapterId) {
+    return this.fs.collection<Chapter>(`chapters`).doc(chapterId).valueChanges();
   }
 }

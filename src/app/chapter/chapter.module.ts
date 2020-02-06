@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChaptersComponent } from '../chapters/chapters.component';
 import { ChapterComponent } from './chapter.component';
-import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDialogModule, MatTooltipModule } from '@angular/material';
+import { MatCardModule, MatProgressSpinnerModule, MatButtonModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDialogModule, MatTooltipModule, MatBadgeModule, MatIconModule, MatExpansionModule, MatCheckboxModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LevelService } from './levels/services/level.service';
 import { AddChapterComponent } from './add-chapter/add-chapter.component';
@@ -11,6 +11,8 @@ import { UploadTaskChapterComponent } from './add-chapter/upload-task-chapter/up
 import { AddLevelComponent } from './levels/services/add-level/add-level.component';
 import { EditLevelComponent } from './levels/services/edit-level/edit-level.component';
 import { RemoveLevelComponent } from './levels/services/remove-level/remove-level.component';
+import { BonusLevelComponent } from './bonus-level/bonus-level.component';
+import { AddBonusLevelComponent } from './add-chapter/add-bonus-level/add-bonus-level.component';
 
 
 
@@ -22,7 +24,9 @@ import { RemoveLevelComponent } from './levels/services/remove-level/remove-leve
     UploadTaskChapterComponent,
     AddLevelComponent,
     EditLevelComponent,
-    RemoveLevelComponent
+    RemoveLevelComponent,
+    BonusLevelComponent,
+    AddBonusLevelComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +40,11 @@ import { RemoveLevelComponent } from './levels/services/remove-level/remove-leve
     ReactiveFormsModule,
     MatDialogModule,
     FormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatBadgeModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatCheckboxModule
   ],
   exports: [
     ChaptersComponent,
@@ -53,6 +61,6 @@ import { RemoveLevelComponent } from './levels/services/remove-level/remove-leve
   providers: [
     LevelService
   ],
-  entryComponents: [AddLevelComponent, EditLevelComponent, RemoveLevelComponent]
+  entryComponents: [AddLevelComponent, EditLevelComponent, RemoveLevelComponent, BonusLevelComponent]
 })
 export class ChapterModule { }
