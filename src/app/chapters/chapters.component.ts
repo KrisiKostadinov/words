@@ -11,6 +11,7 @@ import { AuthService } from '../auth/services/auth.service';
 export class ChaptersComponent implements OnInit, OnDestroy {
   chapters;
   subscription: Subscription;
+  isLoading: boolean = false;
 
   constructor(private chapterService: ChapterService, public auth: AuthService) {
   }
@@ -24,5 +25,12 @@ export class ChaptersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  deleteChapter(id) {
+    this.isLoading = true;
+    this.chapterService.deleteChapter(id).then(data => {
+      this.isLoading = false;
+    });
   }
 }

@@ -16,11 +16,16 @@ export class ChapterService {
   }
 
   add(data) {
+    console.log(data);
     return this.fs.collection("chapters").add(data);
   }
   
   getAll() {
     return this.fs.collection<Chapter>("chapters").valueChanges({ idField: "id" });
+  }
+
+  updateBonusLevel(chapterId, bonusLevel) {
+    return this.fs.collection("chapters").doc(chapterId).set(bonusLevel, { merge: true });
   }
 
   addBonusLevel(chapterId, chapter) {
@@ -29,5 +34,9 @@ export class ChapterService {
   
   getChapterById(chapterId) {
     return this.fs.collection<Chapter>(`chapters`).doc(chapterId).valueChanges();
+  }
+
+  deleteChapter(id) {
+    return this.fs.collection('chapters').doc(id).delete();
   }
 }

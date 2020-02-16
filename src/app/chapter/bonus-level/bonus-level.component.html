@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 <div class="bonus-level">
   <app-add-bonus-level (addQuestionEmitter)="addQuestionData($event)"></app-add-bonus-level>
   <mat-accordion>

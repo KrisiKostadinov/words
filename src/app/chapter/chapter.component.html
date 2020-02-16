@@ -4,8 +4,8 @@
 <div class="container">
     <div class="options mt-2 text-center bg-light rounded shadow d-flex justify-content-center align-items-center">
         <mat-icon *ngIf="chapter?.bonusLevel?.isActived" matBadge="1" matBadgeColor="warn" (click)="bonusWindow()">card_giftcard</mat-icon>
-        <mat-icon *ngIf="!isCompletedLevels" (click)="bonusWindow()">card_giftcard</mat-icon>
-        <mat-icon *ngIf="isCompletedLevels" (click)="bonusWindow()" matBadge="1">card_giftcard</mat-icon>
+        <mat-icon *ngIf="!isCompletedLevels && chapter?.isPlayed">card_giftcard</mat-icon>
+        <mat-icon *ngIf="isCompletedLevels && !chapter?.isPlayed" (click)="bonusWindow()" matBadge="1">card_giftcard</mat-icon>
         <mat-form-field>
             <mat-label>Филтрирай по:</mat-label>
             <mat-select>
@@ -71,10 +71,6 @@
             <button class="mx-2" mat-raised-button color="primary" matTooltip="Добави ниво" (click)="addLevel()">
                 <i class="material-icons">add</i>
                 Добави ниво
-            </button>
-            <button class="mx-2" mat-raised-button color="primary" matTooltip="Редактирай главата" (click)="editChapter()">
-                <i class="material-icons">edit</i>
-                Редактирай главата
             </button>
         </div>
     </span>

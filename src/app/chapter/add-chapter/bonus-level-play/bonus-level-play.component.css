@@ -1,0 +1,17 @@
+mat-selection-list,
+button {
+    outline: none;
+}
+
+mat-list-item:hover {
+    color: #fff;
+    background-color: #428bca;
+}
+
+mat-list-item {
+    cursor: pointer;
+}
+
+mat-list-item:active {
+    background-color: rgb(0, 255, 0);
+}

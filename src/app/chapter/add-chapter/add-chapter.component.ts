@@ -96,21 +96,16 @@ export class AddChapterComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.files && this.files.length > 0) {
-      this.chapterService.add({
-        name: this.chapterForm.value.name,
-        photos: this.filesPaths,
-        bonusLevel: {
-          isActived: false,
-          questions: this.questions
-        }
-      }).then(data => {
-        this.isSubmited = true;
-        this.resetForm();
-      });
-    } else {
-      this.errors.push('Добавете поне една картинка.');
-    }
+    this.chapterService.add({
+      name: this.chapterForm.value.name,
+      photos: this.filesPaths,
+      bonusLevel: {},
+      completedLevels: [{}],
+      isPlayed: false
+    }).then(data => {
+      this.isSubmited = true;
+      this.resetForm();
+    });
   }
 
   resetForm() {

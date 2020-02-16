@@ -2,3 +2,10 @@
     overflow-y: scroll;
     max-height: 400px;
 }
+
+mat-spinner {
+    position: absolute;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+}

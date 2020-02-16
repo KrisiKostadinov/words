@@ -11,6 +11,7 @@ import { EditLevelComponent } from './levels/services/edit-level/edit-level.comp
 import { RemoveLevelComponent } from './levels/services/remove-level/remove-level.component';
 import { Group } from './models/group.model';
 import { BonusLevelComponent } from './bonus-level/bonus-level.component';
+import { BonusLevelPlayComponent } from './add-chapter/bonus-level-play/bonus-level-play.component';
 
 @Component({
   selector: 'app-chapter',
@@ -126,8 +127,16 @@ export class ChapterComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe(data => {
       if(data) {
         this.isLoading = true;
-        this.levelService.removeLevel(data.levelId).then(data => {
-          this.isLoading = false;
+        this.levelService.removeLevel(data.levelId).then(() => {
+          this.chapterService.getChapterById(this.chapterId).subscribe(chapterData => {
+            let updatedLevels = chapterData['completedLevels'].filter(u => u.levelId != data.levelId);
+
+            chapterData['completedLevels'] = updatedLevels;
+
+            this.chapterService.updateBonusLevel(this.chapterId, chapterData).then(data => {
+              this.isLoading = false;
+            });
+          })
         });
       }
     });
@@ -152,7 +161,12 @@ export class ChapterComponent implements OnInit, OnDestroy {
   }
 
   bonusWindow() {
-    this.dialog.open(BonusLevelComponent);
+    this.dialog.open(BonusLevelPlayComponent, {
+      width: "700px",
+      data: {
+        chapterId: this.chapterId
+      }
+    });
   }
 
   ngOnInit() {
@@ -167,16 +181,15 @@ export class ChapterComponent implements OnInit, OnDestroy {
       sub.unsubscribe();
       let levelsCount = levels.length;
       
-      sub = this.chapterService.getChapterById(this.chapterId).subscribe(chapterData => {
-        sub.unsubscribe();
+      this.chapterService.getChapterById(this.chapterId).subscribe(chapterData => {
         let chapter = chapterData as Chapter;
 
         if(chapter.completedLevels) {
           let totalLevelCount = chapter.completedLevels.filter(u => u.userId === userId).length;
-          if(levelsCount === totalLevelCount) {
+          if(levelsCount === totalLevelCount && levelsCount !== 0) {
             this.isCompletedLevels = true;
+            console.log(this.isCompletedLevels);
           }
-
         }
         console.log(chapterData);
       });
@@ -189,9 +202,8 @@ export class ChapterComponent implements OnInit, OnDestroy {
 
     this.levelService.getAll(this.chapterId).subscribe(data => {
       this.displayedLevels = data;
-      let subBonus = this.chapterService.checkBonusById(this.chapterId).subscribe(data => {
+      this.chapterService.checkBonusById(this.chapterId).subscribe(data => {
         this.chapter = data;
-        subBonus.unsubscribe();
       });
       
       for(let level of this.displayedLevels) {

@@ -1,0 +1,39 @@
+<mat-spinner class="mx-auto" *ngIf="!bonusLevel || saved"></mat-spinner>
+<div *ngIf="!isPlay && !isEnd && bonusLevel">
+    <h2 class="text-center text-primary">Бонус</h2>
+    <p class="bg-secondary text-center p-4 text-light">Отговорете на {{ bonusLevel.length }} лесни въпроса за {{ seconds }} секунди.</p>
+    <div class="text-center my-2">
+        <button mat-flat-button (click)="play()" color="primary">Старт</button>
+    </div>
+</div>
+
+<div *ngIf="isPlay && question">
+    <div class="d-flex justify-content-between">
+        <p>{{ seconds }} секунди</p>
+        <p>Въпрос {{ currentIndex }}</p>
+        <p>Точки на въпрос: {{ pointsOfAnswer }}</p>
+        <p>Общо точки: {{ points }}</p>
+    </div>
+    <div class="bg-primary p-2">
+        <h4 class="text-center text-light">{{ question.title }}</h4>
+    </div>
+    <mat-list>
+        <mat-list-item *ngFor="let answer of question.answers; let i = index" (click)="checkAnswer(i)">{{answer.content}}</mat-list-item>
+    </mat-list>
+</div>
+<div *ngIf="isEnd">
+    <h4 *ngIf="timeOut" class="text-danger text-center">Времето свърши</h4>
+    <h2 class="text-primary text-center">Резултат</h2>
+    <div>
+        <p class="text-center">Сърани точки: {{ status.points }}</p>
+        <mat-progress-bar mode="determinate" value="{{status.correctAnswers / bonusLevel.length * 100}}"></mat-progress-bar>
+        <p class="text-center">Верни отговори: {{ status.correctAnswers }}</p>
+        <mat-progress-bar mode="determinate" color="warn" value="{{status.incorrectAnswers / bonusLevel.length * 100}}"></mat-progress-bar>
+        <p class="text-center">Грешни отговори: {{ status.incorrectAnswers }}</p>
+        <p class="text-center">Общо въпроси: {{ bonusLevel.length }}</p>
+    </div>
+    <div class="d-flex justify-content-between my-2">
+        <button mat-flat-button [mat-dialog-close]="" (click)="saveLevel()" color="primary">Запази и продължи</button>
+        <button mat-flat-button [mat-dialog-close]="" color="warn">Не запазвай</button>
+    </div>
+</div>

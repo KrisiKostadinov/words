@@ -17,6 +17,7 @@ export class SelectChapter {
 export class BonusLevelComponent implements OnInit {
 
   stepParent = 0;
+  isLoading: boolean = false;
 
   step = 0;
 
@@ -45,13 +46,15 @@ export class BonusLevelComponent implements OnInit {
   }
 
   addBonusLevel() {
+    this.isLoading = true;
     let bonusData = this.questions;
     let sub = this.chapterService.getChapterById(this.chapterId).subscribe(chapter => {
       sub.unsubscribe();
       chapter['bonusLevel'] = bonusData;
+      chapter['isPlayed'] = false;
       
       this.chapterService.addBonusLevel(this.chapterId, chapter).then(data => {
-        console.log(data);
+        this.isLoading = false;
       });
     });
   }
