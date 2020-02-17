@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 class="text-capitalize text-center text-light my-4">chapters ({{ chapters.length }})</h2>
+    <h2 class="text-capitalize text-center text-light my-4" *ngIf="chapters">chapters ({{ chapters.length }})</h2>
     <mat-spinner class="mx-auto" *ngIf="!chapters || isLoading"></mat-spinner>
     <div *ngIf="chapters" class="row w-100 d-flex justify-content-center">
         <mat-card *ngFor="let chapter of chapters as chapter">

@@ -1,0 +1,23 @@
+<div class="add-team">
+    <button mat-fab color="primary" (click)="addTeam()">
+        <i class="material-icons">add</i>
+    </button>
+</div>
+
+<h2 class="text-center text-primary">{{ data.teams }}</h2>
+<mat-list>
+    <mat-list-item *ngFor="let team of teams">
+      <h3 matLine> {{ team.title }} </h3>
+      <p matLine class="d-flex justify-content-between">
+        <span class="col-4 d-flex" matTooltip="Участници">
+          <i class="material-icons">person</i> {{ team.participants.length }}
+        </span>
+        <span class="col-4 d-flex" matTooltip="Създател">
+          <i class="material-icons">person</i>{{ team.creator.name }}
+        </span>
+        <span class="col-4 d-flex" matTooltip="Създадено на">
+          <i class="material-icons">date_range</i> {{ team.created | date }}
+        </span>
+      </p>
+    </mat-list-item>
+</mat-list>

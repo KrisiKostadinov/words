@@ -1,0 +1,14 @@
+mat-selection-list,
+button {
+    outline: none;
+}
+
+.add-team {
+    position: relative;
+}
+
+.add-team button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}

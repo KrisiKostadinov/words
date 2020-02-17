@@ -1,0 +1,13 @@
+.close-btn {
+    position: relative;
+}
+
+.close-btn button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+button {
+    outline: none;
+}

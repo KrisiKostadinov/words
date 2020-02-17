@@ -18,6 +18,7 @@ import { AuthInterceptor } from './auth/interceptors/auth-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChapterModule } from './chapter/chapter.module';
 import { ChapterRoutiongModule } from './chapter/chapter.routing.module';
+import { TeamModule } from './teams/team.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ChapterRoutiongModule } from './chapter/chapter.routing.module';
     AuthModule,
     AuthRoutingModule,
     ChapterModule,
-    ChapterRoutiongModule
+    ChapterRoutiongModule,
+    TeamModule
   ],
   providers: [
     {
