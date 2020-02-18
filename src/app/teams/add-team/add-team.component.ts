@@ -35,15 +35,15 @@ export class AddTeamComponent {
 
     add() {
       if(this.teamForm.valid) {
+        const opened = this.openSnackBar('Добавяне на отбора!', 'OK');
         this.teamService.add({
           title: this.teamForm.value.title,
           creator: this.authService.user,
           participants: [this.authService.user],
           created: Date.now()
         }).then(data => {
-          this.openSnackBar('Добавяне на отбора!', 'OK').afterDismissed().subscribe(() => {
-            this.openSnackBar('Добавихте отбор успешно!', 'OK');
-          });
+          opened.closeWithAction();
+          this.openSnackBar('Добавихте отбор успешно!', 'OK');
         });
       }
     }

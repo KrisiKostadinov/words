@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddTeamComponent } from './add-team/add-team.component';
-import { MatInputModule, MatButtonModule, MatSnackBarModule, MatListModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSnackBarModule, MatListModule, MatTooltipModule, MatProgressSpinnerModule } from '@angular/material';
 import { TeamService } from './services/team.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AllTeamsComponent } from './all-teams/all-teams.component';
@@ -18,7 +18,9 @@ import { AllTeamsComponent } from './all-teams/all-teams.component';
     MatButtonModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-    MatListModule
+    MatListModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   exports: [
   ],

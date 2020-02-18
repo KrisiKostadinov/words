@@ -6,8 +6,9 @@
 <h2 class="text-center text-primary">{{ data.team }}</h2>
 <form [formGroup]="teamForm">
     <mat-form-field class="w-100">
-        <mat-label>Име на отбора</mat-label>
-        <input matInput placeholder="Отбор" formControlName="title">
+        <mat-label>Нов отбор</mat-label>
+        <input matInput #message maxlength="20" formControlName="title" placeholder="Създаване на но отбор">
+        <mat-hint align="end">{{ message.value.length }} / 20 Синвола</mat-hint>
     </mat-form-field>
 </form>
 <div class="text-center">

@@ -12,3 +12,7 @@ button {
     right: 0;
     top: 0;
 }
+
+mat-spinner {
+    margin: 0 auto;
+}
