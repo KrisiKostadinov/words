@@ -1,0 +1,10 @@
+<div class="box">
+    <h2 class="text-primary">{{ data.team.title }}</h2>
+    <button *ngIf="!isStart" mat-raised-button color="primary" (click)="startContest()">Създай ново състезание</button>
+    <mat-spinner class="my-2" *ngIf="isStart"></mat-spinner>
+    <div *ngIf="isStart">
+        <p>Търсене на противник</p>
+        <button mat-raised-button color="warn" (click)="startContest()">Спри търсенето</button>
+    </div>
+    <button class="my-2" mat-button color="primary" (click)="showContests()">Виж всички състезания</button>
+</div>

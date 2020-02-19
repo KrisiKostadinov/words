@@ -7,7 +7,7 @@
 <mat-spinner *ngIf="!teams"></mat-spinner>
 <mat-list>
     <mat-list-item *ngFor="let team of teams; let i = index">
-      <h3 matLine>{{ team.title }}</h3>
+      <h3 matLine (click)="detailsTeam(i)">{{ team.title }}</h3>
       <p matLine class="d-flex justify-content-between align-content-center">
         <span class="col-3 d-flex" matTooltip="Участници">
           <i class="material-icons">person</i> {{ team.participants.length }}

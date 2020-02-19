@@ -16,3 +16,7 @@ button {
 mat-spinner {
     margin: 0 auto;
 }
+
+h3 {
+    cursor: pointer;
+}

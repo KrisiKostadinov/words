@@ -1,0 +1,9 @@
+mat-list-item {
+    cursor: pointer;
+}
+
+.contest:hover {
+    background-color: #295bff;
+    transition: 0.2s;
+    color: #fff;
+}

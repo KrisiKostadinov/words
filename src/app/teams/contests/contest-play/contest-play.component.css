@@ -1,0 +1,19 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+ul li {
+    width: 93.14px;
+    text-align: center;
+    line-height: 93.14px;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+button {
+    outline: none;
+    line-height: 120px;
+    font-size: 4em;
+}

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Team } from '../models/team.model';
 import { AddTeamComponent } from '../add-team/add-team.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { AddContestComponent } from '../contests/add-contest/add-contest.component';
 
 export class TeamList {
   teams: string;
@@ -107,4 +108,17 @@ export class AllTeamsComponent implements OnInit {
       });
     }
 
+    detailsTeam(index) {
+      const team = this.teams[index] as Team;
+      const user = this.authService.user;
+      this.dialog.open(AddContestComponent, {
+        width: '700px',
+        backdropClass: 'bg-primary',
+        data: {
+          team: team
+        }
+      });
+      
+      this.dialogRef.close();
+    }
 }

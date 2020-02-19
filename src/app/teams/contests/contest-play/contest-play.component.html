@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-between">
+    <h2>{{ currentWord ? currentWord : "Кликнете буква" }}</h2>
+    <h2 class="text-center text-primary">{{ data.team.title }}</h2>
+    <h2 class="text-center bg-primary text-light rounded-circle p-2">{{ timer }}</h2>
+</div>
+
+<ul class="d-flex">
+    <li class="text-light shadow rounded bg-primary border border-light" *ngFor="let letter of letters; let i = index" (click)="selectLetter($event, letter)">{{ letter }}</li>
+</ul>
+
+<button class="w-100" mat-raised-button color="primary" (click)="checkWord()">Провери думата</button>

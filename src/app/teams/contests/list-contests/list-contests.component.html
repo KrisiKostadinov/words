@@ -1,0 +1,12 @@
+<h2 class="text-center text-primary">Отворени състезания</h2>
+<mat-spinner class="mx-auto" *ngIf="!contests"></mat-spinner>
+<mat-list *ngIf="contests">
+    <mat-list-item class="my-1 rounded shadow contest" *ngFor="let contest of contests" (click)="joinToContest(contest.id)">
+      <mat-icon matListIcon>person</mat-icon>
+      <h3 matLine> {{ contest.creator.name }}</h3>
+      <p matLine>
+        <span class="mr-2"> {{ contest?.players?.length }} Участници</span>
+        <span class="ml-2">{{ contest.wordsCount }} Думи</span>
+      </p>
+    </mat-list-item>
+</mat-list>
