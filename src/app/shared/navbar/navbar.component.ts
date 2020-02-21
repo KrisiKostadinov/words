@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { MatDialog } from '@angular/material';
 import { AddTeamComponent } from 'src/app/teams/add-team/add-team.component';
 import { AllTeamsComponent } from 'src/app/teams/all-teams/all-teams.component';
+import { AddLevelContestComponent } from 'src/app/teams/contests/add-level-contest/add-level-contest.component';
 
 @Component({
   selector: 'app-navbar',
@@ -28,6 +29,13 @@ export class NavbarComponent implements OnInit {
       data: {
         teams: 'Всички отбори'
       }
+    });
+  }
+
+  addLevelContest() {
+    this.dialog.open(AddLevelContestComponent, {
+      width: '700px',
+      backdropClass: 'bg-primary',
     });
   }
 }

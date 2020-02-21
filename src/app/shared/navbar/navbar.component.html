@@ -12,6 +12,11 @@
                     <span class="mx-5" (click)="allTeams()">Отбори</span>
                 </span>
             </span>
+            <span *ngIf="auth.user as user">
+                <span *ngIf="auth.user.roles">
+                    <span class="mx-5" *ngIf="user.roles.admin" (click)="addLevelContest()">Добави състезателно ниво</span>
+                </span>
+            </span>
         </div>
         <div class="navbar-right" *ngIf="auth.user as user; else notAuth">
             <button mat-raised-button><span>Hello, </span><span *ngIf="user.name">{{ user.name }}</span></button>

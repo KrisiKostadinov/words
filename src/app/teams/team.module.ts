@@ -9,6 +9,11 @@ import { AddContestComponent } from './contests/add-contest/add-contest.componen
 import { ContestPlayComponent } from './contests/contest-play/contest-play.component';
 import { ListContestsComponent } from './contests/list-contests/list-contests.component';
 import { ContestService } from './contests/services/contest.service';
+import { AddLevelContestComponent } from './contests/add-level-contest/add-level-contest.component';
+import { ListLevelContestComponent } from './contests/list-level-contest/list-level-contest.component';
+import { LevelContestService } from './contests/services/level-contest.service';
+import { EditLevelContestComponent } from './contests/edit-level-contest/edit-level-contest.component';
+import { RemoveLevelContstComponent } from './contests/remove-level-contst/remove-level-contst.component';
 
 
 @NgModule({
@@ -17,7 +22,11 @@ import { ContestService } from './contests/services/contest.service';
     AllTeamsComponent,
     AddContestComponent,
     ContestPlayComponent,
-    ListContestsComponent
+    ListContestsComponent,
+    AddLevelContestComponent,
+    ListLevelContestComponent,
+    EditLevelContestComponent,
+    RemoveLevelContstComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +42,7 @@ import { ContestService } from './contests/services/contest.service';
   ],
   exports: [
   ],
-  providers: [ TeamService, ContestService ],
-  entryComponents: [ AddTeamComponent, AllTeamsComponent, AddContestComponent, ContestPlayComponent, ListContestsComponent ]
+  providers: [ TeamService, ContestService, LevelContestService ],
+  entryComponents: [ AddTeamComponent, AllTeamsComponent, AddContestComponent, ContestPlayComponent, ListContestsComponent, AddLevelContestComponent, ListLevelContestComponent, EditLevelContestComponent, RemoveLevelContstComponent ]
 })
 export class TeamModule { }

@@ -1,0 +1,23 @@
+<h2 class="text-center text-primary" *ngIf="levelsContest">Всички състезателни нива {{ levelsContest.length }}</h2>
+<mat-spinner class="mx-auto" *ngIf="!levelsContest"></mat-spinner>
+<mat-list *ngIf="levelsContest">
+    <mat-list-item class="my-1 rounded shadow contest" *ngFor="let level of levelsContest">
+      <mat-icon matListIcon>play_arrow</mat-icon>
+      <h3 matLine> {{ level.words.length }} Думи</h3>
+      <p matLine class="d-flex justify-content-between align-items-center">
+        <span class="mr-2">Букви
+            <span *ngFor="let letter of level.letters.split('')"> {{ letter | uppercase }} </span>
+        </span>
+        <span>
+            <button mat-button (click)="removeLevel(level.id)" color="warn">
+                <mat-icon matListIcon>edit</mat-icon>
+                <span>Изтрии</span>
+            </button>
+            <button mat-button (click)="editLevel(level.id)" color="accept">
+                <mat-icon matListIcon>edit</mat-icon>
+                <span>Редактирай</span>
+            </button>
+        </span>
+    </p>
+</mat-list-item>
+</mat-list>

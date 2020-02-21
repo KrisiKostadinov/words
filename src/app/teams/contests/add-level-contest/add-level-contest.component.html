@@ -1,0 +1,16 @@
+<h2 class="text-center text-primary">Добави състезателно ниво</h2>
+<form [formGroup]="addLevelContestForm">
+    <mat-form-field class="w-100">
+      <mat-label>Думи</mat-label>
+      <input matInput placeholder="Добави думи разделени с запетая" formControlName="words">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Букви</mat-label>
+      <input matInput placeholder="Букви" formControlName="letters">
+    </mat-form-field>
+    <div class="d-flex justify-content-center">
+        <button mat-button color="primary" [disabled]="!addLevelContestForm.valid" (click)="addLevel()">Добави</button>
+        <button mat-button color="primary" [disabled]="!addLevelContestForm.valid" (click)="addLevelCloseWindow()">Добави и затвори</button>
+        <button mat-button color="primary" (click)="showAll()">Виж всички нива</button>
+    </div>
+</form>
